@@ -1,9 +1,7 @@
-import { env } from "cloudflare:workers";
-
 const cookieName = "jiao_admin_session";
 
 function getPassword() {
-  return (env as unknown as { ADMIN_PASSWORD?: string }).ADMIN_PASSWORD ?? "";
+  return process.env.ADMIN_PASSWORD ?? "";
 }
 
 async function sha256(value: string) {
@@ -37,11 +35,13 @@ export async function isAdminRequest(request: Request) {
 
 export async function adminCookie() {
   const token = await getSessionToken();
-  return `${cookieName}=${token}; Path=/; HttpOnly; SameSite=Lax; Max-Age=2592000; Secure`;
+  const secure = process.env.NODE_ENV === "production" ? " Secure;" : "";
+  return `${cookieName}=${token}; Path=/; HttpOnly; SameSite=Lax; Max-Age=2592000;${secure}`;
 }
 
 export function clearAdminCookie() {
-  return `${cookieName}=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0; Secure`;
+  const secure = process.env.NODE_ENV === "production" ? " Secure;" : "";
+  return `${cookieName}=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0;${secure}`;
 }
 
 export function isAdminConfigured() {
