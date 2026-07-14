@@ -380,12 +380,14 @@ h1 {
 
 .scenic-section {
   position: relative;
-  width: min(1240px, calc(100% - 40px));
+  width: 100%;
+  max-width: none;
+  aspect-ratio: 16 / 9;
   margin-top: 34px;
   margin-bottom: 34px;
-  overflow: hidden;
+  overflow: auto;
   border: 0;
-  border-radius: 26px;
+  border-radius: 0;
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -440,9 +442,13 @@ h1 {
 
 .love-notes {
   position: relative;
-  overflow: hidden;
+  width: calc(100vw - var(--scrollbar-compensation, 0px));
+  max-width: none;
+  aspect-ratio: 16 / 9;
+  margin-left: calc(50% - 50vw);
+  overflow: auto;
   border: 0;
-  border-radius: 26px;
+  border-radius: 0;
   background-color: #17252c;
   background-image: url("./assets/section-bg/love-notes-bg-landscape.jpg");
   background-position: center;
@@ -869,6 +875,31 @@ article p {
     grid-template-columns: 1fr;
   }
 
+  .scenic-section {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    padding: 26px;
+  }
+
+  .workspace-scene .journal-grid,
+  .future-scene .split {
+    grid-template-columns: repeat(2, minmax(260px, 1fr));
+    min-width: 720px;
+  }
+
+  .love-notes {
+    grid-template-columns: repeat(2, minmax(260px, 1fr));
+    width: 100vw;
+    aspect-ratio: 16 / 9;
+    min-width: 720px;
+    margin-left: calc(50% - 50vw);
+  }
+
+  .scenic-section article,
+  .love-notes article {
+    padding: 18px;
+  }
+
   .hero-content {
     grid-template-columns: 1fr;
   }
@@ -975,6 +1006,15 @@ article p {
   .page-section,
   .love-section {
     width: min(100% - 28px, 1180px);
+  }
+
+  .scenic-section {
+    width: 100%;
+    padding: 18px;
+  }
+
+  .love-notes {
+    width: 100vw;
   }
 
   .identity-map {
