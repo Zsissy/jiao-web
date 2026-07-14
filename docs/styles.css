@@ -384,12 +384,14 @@ h1 {
   margin-top: 34px;
   margin-bottom: 34px;
   overflow: hidden;
-  border: 1px solid rgba(116, 94, 66, 0.16);
-  border-radius: 34px;
+  border: 0;
+  border-radius: 26px;
   background-position: center;
-  background-size: cover;
-  box-shadow: 0 28px 80px rgba(85, 67, 48, 0.13);
+  background-repeat: no-repeat;
+  background-size: contain;
+  box-shadow: 0 30px 90px rgba(24, 31, 38, 0.22);
   padding: clamp(44px, 7vw, 92px) clamp(22px, 5vw, 64px);
+  color: rgba(255, 253, 246, 0.94);
 }
 
 .scenic-section::before,
@@ -406,44 +408,53 @@ h1 {
 }
 
 .workspace-scene {
-  background-color: #dbe9ef;
-  background-image: url("./assets/section-bg/workspace-bg.png");
-  background-position: center 48%;
+  background-color: #09283f;
+  background-image: url("./assets/section-bg/workspace-bg-landscape.jpg");
+  background-position: center;
 }
 
 .workspace-scene::before {
-  background: rgba(235, 244, 242, 0.72);
+  background: rgba(5, 20, 32, 0.22);
 }
 
 .workspace-scene .section-heading {
-  border-bottom-color: rgba(24, 90, 132, 0.2);
+  border-bottom-color: rgba(255, 246, 220, 0.28);
 }
 
 .workspace-scene article {
-  border-color: rgba(32, 102, 143, 0.22);
-  background: rgba(244, 250, 248, 0.82);
-  box-shadow: 0 18px 42px rgba(22, 77, 115, 0.13);
+  border: 0;
+  background: rgba(6, 24, 38, 0.52);
+  box-shadow: 0 18px 42px rgba(3, 14, 22, 0.2);
+  backdrop-filter: blur(8px) saturate(1.05);
+  -webkit-backdrop-filter: blur(8px) saturate(1.05);
 }
 
 .workspace-scene article span {
-  color: #b27117;
+  color: #ffc85d;
+}
+
+.workspace-scene .section-heading span,
+.workspace-scene article p {
+  color: rgba(245, 250, 252, 0.82);
 }
 
 .love-notes {
   position: relative;
   overflow: hidden;
-  border: 1px solid rgba(60, 75, 82, 0.16);
-  border-radius: 34px;
-  background-color: #dbe6eb;
-  background-image: url("./assets/section-bg/love-notes-bg.png");
-  background-position: center 52%;
-  background-size: cover;
-  box-shadow: 0 24px 70px rgba(51, 68, 76, 0.12);
+  border: 0;
+  border-radius: 26px;
+  background-color: #17252c;
+  background-image: url("./assets/section-bg/love-notes-bg-landscape.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  box-shadow: 0 24px 70px rgba(20, 32, 38, 0.18);
   padding: clamp(22px, 4vw, 42px);
+  color: rgba(255, 253, 246, 0.94);
 }
 
 .love-notes::before {
-  background: rgba(241, 247, 246, 0.74);
+  background: rgba(10, 19, 24, 0.2);
 }
 
 .love-notes > section {
@@ -452,45 +463,58 @@ h1 {
 }
 
 .love-notes article {
-  border-color: rgba(54, 75, 84, 0.2);
-  background: rgba(252, 250, 244, 0.84);
-  box-shadow: 0 18px 40px rgba(46, 61, 68, 0.12);
+  border: 0;
+  background: rgba(13, 24, 30, 0.5);
+  box-shadow: 0 18px 40px rgba(9, 17, 21, 0.2);
+  backdrop-filter: blur(8px) saturate(1.05);
+  -webkit-backdrop-filter: blur(8px) saturate(1.05);
 }
 
 .love-notes article span {
-  color: #8b4b35;
+  color: #ffb08a;
+}
+
+.love-notes article p {
+  color: rgba(245, 250, 252, 0.82);
 }
 
 .future-scene {
-  background-color: #d9e1e5;
-  background-image: url("./assets/section-bg/future-bg.png");
-  background-position: center 46%;
+  background-color: #25313a;
+  background-image: url("./assets/section-bg/future-bg-landscape.jpg");
+  background-position: center;
 }
 
 .future-scene::before {
-  background: rgba(239, 244, 244, 0.76);
+  background: rgba(15, 22, 28, 0.2);
 }
 
 .future-scene .section-heading {
-  border-bottom-color: rgba(158, 36, 30, 0.22);
+  border-bottom-color: rgba(255, 245, 235, 0.26);
 }
 
 .future-scene article {
-  border-color: rgba(154, 42, 37, 0.2);
-  background: rgba(255, 250, 244, 0.85);
-  box-shadow: 0 18px 42px rgba(95, 54, 50, 0.13);
+  border: 0;
+  background: rgba(28, 35, 42, 0.52);
+  box-shadow: 0 18px 42px rgba(13, 18, 22, 0.2);
+  backdrop-filter: blur(8px) saturate(1.05);
+  -webkit-backdrop-filter: blur(8px) saturate(1.05);
 }
 
 .future-scene article span {
-  color: #a33a2b;
+  color: #ff6b5e;
+}
+
+.future-scene .section-heading span,
+.future-scene article p {
+  color: rgba(247, 249, 249, 0.82);
 }
 
 .future-scene .progress {
-  background: rgba(70, 83, 88, 0.16);
+  background: rgba(247, 249, 249, 0.2);
 }
 
 .future-scene .progress i {
-  background: #b7352d;
+  background: #ff473f;
 }
 
 .section-heading {
