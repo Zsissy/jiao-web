@@ -1,14 +1,16 @@
 :root {
-  --ink: #2b2927;
-  --paper: #fbf7f0;
-  --panel: #fffdf8;
-  --muted: #7f766c;
+  --ink: #342f2a;
+  --paper: #fbf4e8;
+  --panel: #fffaf0;
+  --muted: #84786b;
   --line: rgba(43, 41, 39, 0.13);
-  --rose: #c77f91;
-  --sage: #9eaf8b;
-  --mist: #9bb7c9;
-  --gold: #b9915d;
-  --blush: #f4dce2;
+  --rose: #d9a5a6;
+  --sage: #c8d0b1;
+  --mist: #c8d8dd;
+  --gold: #b89461;
+  --cream: #fff7e8;
+  --butter: #f4e4bd;
+  --peach: #f6d8c8;
 }
 
 * {
@@ -44,10 +46,8 @@ a {
   flex-direction: column;
   justify-content: space-between;
   padding: 28px clamp(20px, 5vw, 72px) 54px;
-  background:
-    radial-gradient(circle at 78% 18%, rgba(244, 220, 226, 0.92), transparent 30%),
-    radial-gradient(circle at 18% 74%, rgba(155, 183, 201, 0.5), transparent 32%),
-    linear-gradient(125deg, #fffdf8 0%, #f8eee7 48%, #edf4ef 100%);
+  border-bottom: 1px solid var(--line);
+  background: var(--cream);
 }
 
 .nav {
@@ -112,7 +112,7 @@ h1 {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 14px;
-  background: transparent;
+  background: var(--paper);
   padding: 14px;
 }
 
@@ -122,25 +122,20 @@ h1 {
   flex-direction: column;
   justify-content: flex-end;
   gap: 16px;
+  border: 1px solid var(--line);
   padding: clamp(24px, 4vw, 44px);
 }
 
 .workspace-cover {
-  background:
-    radial-gradient(circle at 80% 18%, rgba(155, 183, 201, 0.58), transparent 34%),
-    linear-gradient(135deg, #fffdf8 0%, #eef5f7 52%, #f5eee6 100%);
+  background: #f8efe0;
 }
 
 .love-cover {
-  background:
-    radial-gradient(circle at 72% 20%, rgba(199, 127, 145, 0.46), transparent 34%),
-    linear-gradient(135deg, #fff9f8 0%, #f8e2e7 48%, #fff4e6 100%);
+  background: #f8e8df;
 }
 
 .future-cover {
-  background:
-    radial-gradient(circle at 76% 18%, rgba(158, 175, 139, 0.52), transparent 34%),
-    linear-gradient(135deg, #fffdf8 0%, #edf5e8 48%, #e9f3f5 100%);
+  background: #eef0df;
 }
 
 .module-card strong {
@@ -193,8 +188,8 @@ article,
 .photo-wall div,
 .anniversary {
   border: 1px solid var(--line);
-  background: rgba(255, 253, 248, 0.9);
-  box-shadow: 0 18px 50px rgba(43, 41, 39, 0.06);
+  background: var(--panel);
+  box-shadow: 0 14px 34px rgba(91, 78, 62, 0.05);
 }
 
 article {
@@ -260,10 +255,7 @@ article p {
   min-height: 410px;
   place-items: center;
   scroll-snap-align: start;
-  background:
-    radial-gradient(circle at 72% 18%, rgba(244, 220, 226, 0.82), transparent 32%),
-    linear-gradient(135deg, rgba(155, 183, 201, 0.2), rgba(158, 175, 139, 0.2)),
-    var(--panel);
+  background: #f6ead8;
   color: var(--muted);
   font-family: Georgia, "Times New Roman", "Songti SC", serif;
   font-size: 42px;
@@ -283,7 +275,7 @@ article p {
 .progress i {
   display: block;
   height: 100%;
-  background: linear-gradient(90deg, var(--rose), var(--gold));
+  background: var(--gold);
 }
 
 .admin-note {
