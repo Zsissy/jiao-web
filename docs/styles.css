@@ -957,12 +957,11 @@ article p {
 
 @media (max-width: 620px) {
   .hero {
-    min-height: 540px;
-    padding: 20px 18px 38px;
+    min-height: auto;
+    padding: 18px 16px 26px;
   }
 
   .nav,
-  .nav div,
   .section-heading,
   .anniversary {
     align-items: flex-start;
@@ -971,40 +970,72 @@ article p {
   }
 
   .nav {
-    display: grid;
+    display: flex;
+    gap: 10px;
+    font-size: 12px;
   }
 
   .nav div {
-    display: grid;
-    gap: 8px;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-start;
   }
 
   .anniversary strong {
     grid-row: auto;
   }
 
-  .hero-stickers {
-    min-height: 260px;
+  .hero-content {
+    gap: 18px;
+    margin-top: 28px;
   }
 
+  h1 {
+    font-size: clamp(46px, 15vw, 64px);
+    line-height: 0.92;
+  }
+
+  .hero-stickers {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    align-items: center;
+    gap: 8px;
+    min-height: 0;
+    width: 100%;
+    margin-top: 18px;
+  }
+
+  .hero-sticker,
   .sticker-a {
-    left: 0;
-    top: 14px;
+    position: static;
+    width: 100%;
+    max-height: 94px;
+    object-fit: contain;
+    transform: none;
   }
 
   .sticker-b {
-    left: 50%;
-    top: 0;
+    position: static;
+    width: 88%;
+    max-height: 86px;
+    object-fit: contain;
+    transform: none;
   }
 
   .sticker-c {
-    left: 12%;
-    top: 128px;
+    position: static;
+    width: 108%;
+    max-height: 98px;
+    object-fit: contain;
+    transform: none;
   }
 
   .sticker-d {
-    left: 62%;
-    top: 110px;
+    position: static;
+    width: 94%;
+    max-height: 94px;
+    object-fit: contain;
+    transform: none;
   }
 
   .page-section,
@@ -1022,23 +1053,45 @@ article p {
   }
 
   .identity-map {
-    inset: -20px -18px -24px -18px;
-    width: calc(100% + 36px);
-    height: calc(100% + 44px);
+    inset: -18px -8px -18px -8px;
+    width: calc(100% + 16px);
+    height: calc(100% + 36px);
+  }
+
+  .profile-feature {
+    width: min(100%, 340px);
+    justify-self: center;
+    margin-top: 6px;
+  }
+
+  .profile-feature img {
+    width: 78%;
+    margin: 26px auto 24px;
+    border-radius: 24px;
+  }
+
+  .identity-tag {
+    font-size: 14px;
+  }
+
+  .student-tag {
+    left: 6px;
+    top: 8px;
   }
 
   .law-tag {
-    right: 0;
+    right: 8px;
+    top: 72px;
   }
 
   .admin-tag {
-    bottom: -16px;
-    right: 0;
+    bottom: 0;
+    right: 4px;
   }
 
   .soulmate-tag {
-    bottom: 12px;
-    left: 0;
+    bottom: 0;
+    left: 4px;
   }
 
   .book-page {
