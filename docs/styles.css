@@ -21,7 +21,8 @@ body {
   margin: 0;
   background: var(--paper);
   color: var(--ink);
-  font-family: "Kaiti SC", "STKaiti", "KaiTi", "PingFang SC", "Microsoft YaHei", serif;
+  font-family: "HanziPen SC", "Yuppy SC", "Xingkai SC", "Kaiti SC", "STKaiti", "KaiTi", "PingFang SC", "Microsoft YaHei", serif;
+  font-weight: 400;
 }
 
 .script-text {
@@ -37,7 +38,7 @@ article p,
 .section-heading span,
 .admin-note p,
 .anniversary p {
-  font-family: "Kaiti SC", "STKaiti", "KaiTi", "PingFang SC", "Microsoft YaHei", serif;
+  font-family: "HanziPen SC", "Yuppy SC", "Xingkai SC", "Kaiti SC", "STKaiti", "KaiTi", "PingFang SC", "Microsoft YaHei", serif;
   font-weight: 400;
 }
 
@@ -283,7 +284,6 @@ article p,
 }
 
 article,
-.photo-wall div,
 .anniversary {
   border: 1px solid var(--line);
   border-radius: 30px;
@@ -339,26 +339,137 @@ article p {
   font-weight: 500;
 }
 
-.photo-wall {
+.scrapbook {
+  position: relative;
   display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: minmax(240px, 32%);
-  gap: 18px;
-  margin-bottom: 38px;
-  overflow-x: auto;
-  padding-bottom: 12px;
-  scroll-snap-type: x mandatory;
+  grid-template-columns: minmax(0, 1fr) 18px minmax(0, 1fr);
+  gap: 0;
+  margin-bottom: 44px;
+  border: 1px solid rgba(116, 94, 66, 0.16);
+  border-radius: 32px;
+  background: #fff6e4;
+  box-shadow: 0 28px 80px rgba(116, 94, 66, 0.13);
+  overflow: hidden;
 }
 
-.photo-wall div {
-  display: grid;
-  min-height: 410px;
-  place-items: center;
-  scroll-snap-align: start;
-  background: var(--panel-strong);
-  color: var(--muted);
-  font-family: "Bradley Hand", "Segoe Print", "Comic Sans MS", "Snell Roundhand", cursive;
-  font-size: 42px;
+.book-page {
+  position: relative;
+  min-height: 720px;
+  background: #fffaf0;
+}
+
+.left-page {
+  border-right: 1px solid rgba(116, 94, 66, 0.1);
+}
+
+.right-page {
+  border-left: 1px solid rgba(116, 94, 66, 0.1);
+}
+
+.book-page::before {
+  position: absolute;
+  inset: 0;
+  border-top: 1px solid rgba(169, 133, 86, 0.07);
+  border-bottom: 1px solid rgba(169, 133, 86, 0.07);
+  content: "";
+  pointer-events: none;
+}
+
+.book-spine {
+  background: #f7ecd7;
+  box-shadow: inset 8px 0 16px rgba(116, 94, 66, 0.08), inset -8px 0 16px rgba(116, 94, 66, 0.08);
+}
+
+.polaroid {
+  position: absolute;
+  z-index: 1;
+  width: 38%;
+  margin: 0;
+  border: 1px solid rgba(116, 94, 66, 0.14);
+  border-radius: 8px;
+  background: #fffdf8;
+  padding: 10px 10px 28px;
+  box-shadow: 0 12px 30px rgba(76, 55, 33, 0.14);
+}
+
+.polaroid::before {
+  position: absolute;
+  left: 50%;
+  top: -13px;
+  width: 54px;
+  height: 22px;
+  border: 1px solid rgba(169, 133, 86, 0.12);
+  background: rgba(255, 247, 222, 0.72);
+  content: "";
+  transform: translateX(-50%) rotate(-3deg);
+}
+
+.polaroid img {
+  width: 100%;
+  height: 178px;
+  border-radius: 4px;
+  object-fit: cover;
+}
+
+.polaroid figcaption {
+  margin-top: 9px;
+  color: var(--gold);
+  font-family: "Bradley Hand", "HanziPen SC", "Yuppy SC", "Segoe Print", "Comic Sans MS", cursive;
+  font-size: 16px;
+  text-align: center;
+}
+
+.p1 {
+  left: 9%;
+  top: 48px;
+  transform: rotate(-5deg);
+  width: 42%;
+}
+
+.p2 {
+  right: 7%;
+  top: 104px;
+  transform: rotate(6deg);
+}
+
+.p3 {
+  left: 12%;
+  bottom: 70px;
+  transform: rotate(4deg);
+}
+
+.p4 {
+  right: 9%;
+  bottom: 46px;
+  transform: rotate(-7deg);
+  width: 34%;
+}
+
+.p5 {
+  left: 7%;
+  top: 54px;
+  transform: rotate(5deg);
+  width: 41%;
+}
+
+.p6 {
+  right: 9%;
+  top: 122px;
+  transform: rotate(-4deg);
+}
+
+.p7 {
+  left: 13%;
+  bottom: 54px;
+  transform: rotate(-6deg);
+  width: 35%;
+}
+
+.p8 {
+  right: 8%;
+  bottom: 76px;
+  transform: rotate(5deg);
+  width: 40%;
 }
 
 .split > section {
@@ -407,8 +518,20 @@ article p {
     min-height: 310px;
   }
 
-  .photo-wall {
-    grid-auto-columns: minmax(230px, 78%);
+  .scrapbook {
+    grid-template-columns: 1fr;
+  }
+
+  .book-spine {
+    display: none;
+  }
+
+  .book-page {
+    min-height: 660px;
+  }
+
+  .polaroid {
+    width: 40%;
   }
 }
 
@@ -463,5 +586,45 @@ article p {
   .soulmate-tag {
     bottom: 12px;
     left: 0;
+  }
+
+  .book-page {
+    min-height: 920px;
+  }
+
+  .polaroid,
+  .p1,
+  .p2,
+  .p3,
+  .p4,
+  .p5,
+  .p6,
+  .p7,
+  .p8 {
+    width: 46%;
+  }
+
+  .polaroid img {
+    height: 142px;
+  }
+
+  .p1,
+  .p5 {
+    top: 34px;
+  }
+
+  .p2,
+  .p6 {
+    top: 258px;
+  }
+
+  .p3,
+  .p7 {
+    bottom: 270px;
+  }
+
+  .p4,
+  .p8 {
+    bottom: 40px;
   }
 }
