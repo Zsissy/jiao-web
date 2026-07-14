@@ -1,16 +1,12 @@
 :root {
-  --ink: #342f2a;
-  --paper: #fbf4e8;
-  --panel: #fffaf0;
-  --muted: #84786b;
-  --line: rgba(43, 41, 39, 0.13);
-  --rose: #d9a5a6;
-  --sage: #c8d0b1;
-  --mist: #c8d8dd;
-  --gold: #b89461;
-  --cream: #fff7e8;
-  --butter: #f4e4bd;
-  --peach: #f6d8c8;
+  --ink: #332d26;
+  --paper: #fff8ea;
+  --panel: rgba(255, 252, 244, 0.7);
+  --panel-strong: rgba(255, 252, 244, 0.86);
+  --muted: #817567;
+  --line: rgba(116, 94, 66, 0.18);
+  --gold: #a98556;
+  --glass-shadow: 0 22px 60px rgba(116, 94, 66, 0.1);
 }
 
 * {
@@ -26,6 +22,11 @@ body {
   background: var(--paper);
   color: var(--ink);
   font-family: "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+}
+
+.script-text {
+  font-family: "Bradley Hand", "Segoe Print", "Comic Sans MS", "Snell Roundhand", cursive;
+  font-weight: 500;
 }
 
 a {
@@ -46,8 +47,7 @@ a {
   flex-direction: column;
   justify-content: space-between;
   padding: 28px clamp(20px, 5vw, 72px) 54px;
-  border-bottom: 1px solid var(--line);
-  background: var(--cream);
+  background: var(--paper);
 }
 
 .nav {
@@ -82,7 +82,7 @@ article span,
 .module-card span {
   color: var(--gold);
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 500;
   text-transform: uppercase;
 }
 
@@ -97,7 +97,6 @@ h1,
 .module-card strong,
 .section-heading p,
 .anniversary strong {
-  font-family: Georgia, "Times New Roman", "Songti SC", serif;
   font-weight: 600;
   letter-spacing: 0;
 }
@@ -106,13 +105,6 @@ h1 {
   margin-bottom: 18px;
   font-size: clamp(54px, 10vw, 126px);
   line-height: 0.9;
-}
-
-.hero-copy p:last-child {
-  max-width: 660px;
-  color: var(--muted);
-  font-size: clamp(17px, 2vw, 23px);
-  line-height: 1.75;
 }
 
 .profile-feature {
@@ -128,10 +120,10 @@ h1 {
   width: 100%;
   aspect-ratio: 4 / 5;
   border: 1px solid var(--line);
-  border-radius: 30px;
+  border-radius: 34px;
   object-fit: cover;
   object-position: 58% 42%;
-  box-shadow: 0 22px 54px rgba(91, 78, 62, 0.1);
+  box-shadow: var(--glass-shadow);
 }
 
 .identity-map {
@@ -164,13 +156,13 @@ h1 {
   z-index: 3;
   border: 1px solid rgba(167, 132, 91, 0.42);
   border-radius: 999px;
-  background: #fffaf0;
+  background: var(--panel-strong);
+  backdrop-filter: blur(18px) saturate(1.25);
+  -webkit-backdrop-filter: blur(18px) saturate(1.25);
   color: #7b6447;
-  font-size: 12px;
-  font-weight: 700;
+  font-size: 15px;
   letter-spacing: 0;
-  padding: 8px 13px;
-  text-transform: uppercase;
+  padding: 9px 15px;
   white-space: nowrap;
 }
 
@@ -192,9 +184,9 @@ h1 {
 .module-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
+  gap: 18px;
   background: var(--paper);
-  padding: 14px;
+  padding: 18px;
 }
 
 .module-card {
@@ -204,19 +196,24 @@ h1 {
   justify-content: flex-end;
   gap: 16px;
   border: 1px solid var(--line);
+  border-radius: 34px;
+  background: var(--panel);
+  backdrop-filter: blur(22px) saturate(1.2);
+  -webkit-backdrop-filter: blur(22px) saturate(1.2);
+  box-shadow: var(--glass-shadow);
   padding: clamp(24px, 4vw, 44px);
 }
 
 .workspace-cover {
-  background: #f8efe0;
+  background: var(--panel);
 }
 
 .love-cover {
-  background: #f8e8df;
+  background: var(--panel);
 }
 
 .future-cover {
-  background: #eef0df;
+  background: var(--panel);
 }
 
 .module-card strong {
@@ -269,8 +266,11 @@ article,
 .photo-wall div,
 .anniversary {
   border: 1px solid var(--line);
+  border-radius: 30px;
   background: var(--panel);
-  box-shadow: 0 14px 34px rgba(91, 78, 62, 0.05);
+  backdrop-filter: blur(20px) saturate(1.18);
+  -webkit-backdrop-filter: blur(20px) saturate(1.18);
+  box-shadow: var(--glass-shadow);
 }
 
 article {
@@ -315,9 +315,9 @@ article p {
 }
 
 .anniversary em {
-  color: var(--rose);
+  color: var(--gold);
   font-style: normal;
-  font-weight: 700;
+  font-weight: 500;
 }
 
 .photo-wall {
@@ -336,9 +336,9 @@ article p {
   min-height: 410px;
   place-items: center;
   scroll-snap-align: start;
-  background: #f6ead8;
+  background: var(--panel-strong);
   color: var(--muted);
-  font-family: Georgia, "Times New Roman", "Songti SC", serif;
+  font-family: "Bradley Hand", "Segoe Print", "Comic Sans MS", "Snell Roundhand", cursive;
   font-size: 42px;
 }
 
@@ -364,7 +364,7 @@ article p {
 }
 
 .admin-note code {
-  color: var(--rose);
+  color: var(--gold);
   font-weight: 700;
 }
 
