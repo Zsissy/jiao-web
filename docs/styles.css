@@ -21,12 +21,24 @@ body {
   margin: 0;
   background: var(--paper);
   color: var(--ink);
-  font-family: "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+  font-family: "Kaiti SC", "STKaiti", "KaiTi", "PingFang SC", "Microsoft YaHei", serif;
 }
 
 .script-text {
   font-family: "Bradley Hand", "Segoe Print", "Comic Sans MS", "Snell Roundhand", cursive;
   font-weight: 500;
+}
+
+h2,
+h3,
+article p,
+.module-card p,
+.module-card span,
+.section-heading span,
+.admin-note p,
+.anniversary p {
+  font-family: "Kaiti SC", "STKaiti", "KaiTi", "PingFang SC", "Microsoft YaHei", serif;
+  font-weight: 400;
 }
 
 a {
@@ -129,9 +141,9 @@ h1 {
 
 .identity-map {
   position: absolute;
-  inset: -18px -32px -30px -30px;
+  inset: -18px -34px -30px -34px;
   z-index: 2;
-  width: calc(100% + 62px);
+  width: calc(100% + 68px);
   height: calc(100% + 48px);
   pointer-events: none;
 }
@@ -168,23 +180,23 @@ h1 {
 }
 
 .student-tag {
-  left: -10px;
-  top: 16px;
+  left: -24px;
+  top: 2px;
 }
 
 .law-tag {
-  right: -18px;
-  top: 8%;
+  right: -28px;
+  top: -10px;
 }
 
 .admin-tag {
-  bottom: -4px;
-  right: -14px;
+  bottom: -12px;
+  right: -26px;
 }
 
 .soulmate-tag {
-  bottom: 20px;
-  left: -18px;
+  bottom: -10px;
+  left: -26px;
 }
 
 .module-grid {
@@ -199,7 +211,7 @@ h1 {
   display: flex;
   min-height: 390px;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: flex-start;
   gap: 16px;
   border: 1px solid var(--line);
   border-radius: 34px;
@@ -223,6 +235,7 @@ h1 {
 }
 
 .module-card strong {
+  min-height: 138px;
   font-size: clamp(40px, 5vw, 70px);
   line-height: 0.95;
 }
@@ -231,6 +244,7 @@ h1 {
   max-width: 420px;
   color: var(--muted);
   line-height: 1.75;
+  margin-top: 0;
 }
 
 .page-section {
@@ -287,7 +301,6 @@ article h2,
 article h3,
 .split > section > h2 {
   margin: 8px 0 10px;
-  font-family: Georgia, "Times New Roman", "Songti SC", serif;
   font-size: 31px;
   font-weight: 600;
   line-height: 1.05;
