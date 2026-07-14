@@ -1,13 +1,14 @@
 :root {
-  --ink: #181615;
-  --paper: #f6f1ea;
-  --panel: #fffaf3;
-  --muted: #706a62;
-  --line: rgba(24, 22, 21, 0.16);
-  --wine: #6f2437;
-  --moss: #5f6f4f;
-  --blue: #435c75;
-  --gold: #b68a52;
+  --ink: #2b2927;
+  --paper: #fbf7f0;
+  --panel: #fffdf8;
+  --muted: #7f766c;
+  --line: rgba(43, 41, 39, 0.13);
+  --rose: #c77f91;
+  --sage: #9eaf8b;
+  --mist: #9bb7c9;
+  --gold: #b9915d;
+  --blush: #f4dce2;
 }
 
 * {
@@ -34,7 +35,7 @@ a {
 .module-card {
   background-position: center;
   background-size: cover;
-  color: #fffaf3;
+  color: var(--ink);
 }
 
 .hero {
@@ -44,9 +45,9 @@ a {
   justify-content: space-between;
   padding: 28px clamp(20px, 5vw, 72px) 54px;
   background:
-    linear-gradient(135deg, rgba(111, 36, 55, 0.78), rgba(24, 22, 21, 0.64)),
-    radial-gradient(circle at 72% 22%, rgba(182, 138, 82, 0.65), transparent 28%),
-    linear-gradient(120deg, #2e3430, #8a7363);
+    radial-gradient(circle at 78% 18%, rgba(244, 220, 226, 0.92), transparent 30%),
+    radial-gradient(circle at 18% 74%, rgba(155, 183, 201, 0.5), transparent 32%),
+    linear-gradient(125deg, #fffdf8 0%, #f8eee7 48%, #edf4ef 100%);
 }
 
 .nav {
@@ -102,7 +103,7 @@ h1 {
 
 .hero-copy p:last-child {
   max-width: 660px;
-  color: rgba(255, 250, 243, 0.86);
+  color: var(--muted);
   font-size: clamp(17px, 2vw, 23px);
   line-height: 1.75;
 }
@@ -110,8 +111,9 @@ h1 {
 .module-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1px;
-  background: var(--ink);
+  gap: 14px;
+  background: transparent;
+  padding: 14px;
 }
 
 .module-card {
@@ -125,20 +127,20 @@ h1 {
 
 .workspace-cover {
   background:
-    linear-gradient(180deg, rgba(24, 22, 21, 0.1), rgba(24, 22, 21, 0.78)),
-    linear-gradient(135deg, #72544f, #243942);
+    radial-gradient(circle at 80% 18%, rgba(155, 183, 201, 0.58), transparent 34%),
+    linear-gradient(135deg, #fffdf8 0%, #eef5f7 52%, #f5eee6 100%);
 }
 
 .love-cover {
   background:
-    linear-gradient(180deg, rgba(24, 22, 21, 0.1), rgba(24, 22, 21, 0.78)),
-    linear-gradient(135deg, #7a2b45, #b58c78);
+    radial-gradient(circle at 72% 20%, rgba(199, 127, 145, 0.46), transparent 34%),
+    linear-gradient(135deg, #fff9f8 0%, #f8e2e7 48%, #fff4e6 100%);
 }
 
 .future-cover {
   background:
-    linear-gradient(180deg, rgba(24, 22, 21, 0.1), rgba(24, 22, 21, 0.78)),
-    linear-gradient(135deg, #4a654e, #446b83);
+    radial-gradient(circle at 76% 18%, rgba(158, 175, 139, 0.52), transparent 34%),
+    linear-gradient(135deg, #fffdf8 0%, #edf5e8 48%, #e9f3f5 100%);
 }
 
 .module-card strong {
@@ -148,7 +150,7 @@ h1 {
 
 .module-card p {
   max-width: 420px;
-  color: rgba(255, 250, 243, 0.82);
+  color: var(--muted);
   line-height: 1.75;
 }
 
@@ -191,7 +193,8 @@ article,
 .photo-wall div,
 .anniversary {
   border: 1px solid var(--line);
-  background: rgba(255, 250, 243, 0.76);
+  background: rgba(255, 253, 248, 0.9);
+  box-shadow: 0 18px 50px rgba(43, 41, 39, 0.06);
 }
 
 article {
@@ -236,7 +239,7 @@ article p {
 }
 
 .anniversary em {
-  color: var(--wine);
+  color: var(--rose);
   font-style: normal;
   font-weight: 700;
 }
@@ -258,7 +261,8 @@ article p {
   place-items: center;
   scroll-snap-align: start;
   background:
-    linear-gradient(135deg, rgba(111, 36, 55, 0.18), rgba(95, 111, 79, 0.22)),
+    radial-gradient(circle at 72% 18%, rgba(244, 220, 226, 0.82), transparent 32%),
+    linear-gradient(135deg, rgba(155, 183, 201, 0.2), rgba(158, 175, 139, 0.2)),
     var(--panel);
   color: var(--muted);
   font-family: Georgia, "Times New Roman", "Songti SC", serif;
@@ -279,7 +283,7 @@ article p {
 .progress i {
   display: block;
   height: 100%;
-  background: linear-gradient(90deg, var(--wine), var(--gold));
+  background: linear-gradient(90deg, var(--rose), var(--gold));
 }
 
 .admin-note {
@@ -287,7 +291,7 @@ article p {
 }
 
 .admin-note code {
-  color: var(--wine);
+  color: var(--rose);
   font-weight: 700;
 }
 
