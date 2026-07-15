@@ -1,12 +1,22 @@
 export type SiteSettings = {
-  heroTitle: string;
-  heroSubtitle: string;
+  homeBackground: string;
+  profileImage: string;
   workspaceBackground: string;
   loveBackground: string;
   futureBackground: string;
-  homeBackground: string;
   anniversaryStart: string;
   anniversaryLabel: string;
+  apartStart: string;
+  apartSticker: string;
+  stickerWorkStretch: string;
+  stickerReadingDog: string;
+  stickerNapDog: string;
+  stickerWorkBox: string;
+};
+
+export type ContentBlock = {
+  key: string;
+  value: string;
 };
 
 export type WorkspaceItem = {
@@ -42,6 +52,7 @@ export type LoveWish = {
   id: number;
   title: string;
   note: string;
+  imageUrl: string;
   completed: boolean;
   sortOrder: number;
 };
@@ -68,6 +79,7 @@ export type TravelPlan = {
 
 export type SiteData = {
   settings: SiteSettings;
+  contentBlocks: Record<string, string>;
   workspaceItems: WorkspaceItem[];
   photos: Photo[];
   loveEvents: LoveEvent[];

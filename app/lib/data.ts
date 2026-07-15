@@ -8,23 +8,76 @@ import type {
   TravelPlan,
   WorkspaceItem,
 } from "./types";
+import { getRuntimeEnv } from "./runtime-env";
 
 type Row = Record<string, unknown>;
-type CollectionName = keyof Omit<SiteData, "settings">;
+export type CollectionName = keyof Omit<SiteData, "settings" | "contentBlocks">;
 
-const defaultSettings: SiteSettings = {
-  heroTitle: "Jiao's Living Archive",
-  heroSubtitle: "学习、相爱、计划未来。把重要的日子和想成为的自己都认真保存。",
+const asset = (path: string) => `/assets/${path}`;
+
+export const defaultSettings: SiteSettings = {
   homeBackground: "",
-  workspaceBackground: "",
-  loveBackground: "",
-  futureBackground: "",
-  anniversaryStart: "2024-01-01",
+  profileImage: asset("profile.jpg"),
+  workspaceBackground: asset("section-bg/workspace-bg-sketch.jpg"),
+  loveBackground: asset("section-bg/love-notes-bg-sketch.jpg"),
+  futureBackground: asset("section-bg/future-bg-sketch.jpg"),
+  anniversaryStart: "2022-12-24",
   anniversaryLabel: "我们的纪念日",
+  apartStart: "2026-06-21",
+  apartSticker: asset("wishes/love-apart.png"),
+  stickerWorkStretch: asset("stickers/sticker-work-stretch.png"),
+  stickerReadingDog: asset("stickers/sticker-reading-dog.png"),
+  stickerNapDog: asset("stickers/sticker-nap-dog.png"),
+  stickerWorkBox: asset("stickers/sticker-work-box.png"),
 };
 
-const fallbackData: SiteData = {
+export const defaultContentBlocks: Record<string, string> = {
+  "nav.brand": "Jiao Archive",
+  "nav.workspace": "workspace",
+  "nav.love": "love story",
+  "nav.future": "future",
+  "nav.admin": "admin",
+  "hero.kicker": "PERSONAL WEBSITE",
+  "hero.title": "Jiao's Living Archive",
+  "identity.student": "student",
+  "identity.law": "law exploring",
+  "identity.admin": "administration management",
+  "identity.soulmate": "soulmate with june",
+  "module.workspace.eyebrow": "学习 / 工作 / 成果",
+  "module.workspace.title": "workspace",
+  "module.workspace.copy": "学习笔记、工作计划、月度展望和成果备份，像一本持续生长的个人档案。",
+  "module.love.eyebrow": "照片 / 纪念日 / 心愿",
+  "module.love.title": "love story",
+  "module.love.copy": "照片墙、纪念日、重要时刻和想一起完成的小愿望。",
+  "module.future.eyebrow": "季度目标 / 旅行计划",
+  "module.future.title": "future planning",
+  "module.future.copy": "把想抵达的地方和想成为的人，拆成清晰、可回看的计划。",
+  "workspace.heading.title": "workspace",
+  "workspace.heading.subtitle": "学习笔记 · 工作计划 · 月度展望 · 成果备份",
+  "love.heading.title": "love story",
+  "love.heading.subtitle": "照片墙 · 纪念日 · 时间线 · 愿望清单",
+  "love.anniversary.from": "from",
+  "love.anniversary.unit": "days together",
+  "love.timeline.title": "时间线",
+  "love.apart.from": "from",
+  "love.apart.prefix": "和宝宝分别已经",
+  "love.apart.suffix": "天",
+  "love.apart.body": "把想念认真存起来，等见面的时候一点点还给彼此。",
+  "love.wishes.title": "愿望清单",
+  "love.wishes.status": "想完成",
+  "future.heading.title": "future planning",
+  "future.heading.subtitle": "季度目标 · 旅行计划",
+  "future.goals.title": "季度目标",
+  "future.travel.title": "旅行计划",
+  "admin.heading.title": "editable admin",
+  "admin.heading.subtitle": "动态版说明",
+  "admin.body":
+    "这是可编辑动态版。进入 /admin 输入管理密码后，可以维护页面文字、照片、背景图和列表内容；朋友访问公开网址无需登录。",
+};
+
+export const fallbackData: SiteData = {
   settings: defaultSettings,
+  contentBlocks: defaultContentBlocks,
   workspaceItems: [
     {
       id: 1,
@@ -67,34 +120,42 @@ const fallbackData: SiteData = {
       sortOrder: 40,
     },
   ],
-  photos: [],
-  loveEvents: [
+  photos: [
+    { id: 1, scope: "love-wall", title: "", caption: "fountain day", url: asset("love/love-01.jpg"), objectKey: "", sortOrder: 10 },
+    { id: 2, scope: "love-wall", title: "", caption: "study with you", url: asset("love/love-03.jpg"), objectKey: "", sortOrder: 20 },
+    { id: 3, scope: "love-wall", title: "", caption: "sunlit shadow", url: asset("love/love-08.jpg"), objectKey: "", sortOrder: 30 },
+    { id: 4, scope: "love-wall", title: "", caption: "on the way", url: asset("love/love-07.jpg"), objectKey: "", sortOrder: 40 },
+    { id: 5, scope: "love-wall", title: "", caption: "soft dance", url: asset("love/love-02.jpg"), objectKey: "", sortOrder: 50 },
+    { id: 6, scope: "love-wall", title: "", caption: "spring kiss", url: asset("love/love-06.jpg"), objectKey: "", sortOrder: 60 },
+    { id: 7, scope: "love-wall", title: "", caption: "little mirror", url: asset("love/love-04.jpg"), objectKey: "", sortOrder: 70 },
+    { id: 8, scope: "love-wall", title: "", caption: "bright noon", url: asset("love/love-05.jpg"), objectKey: "", sortOrder: 80 },
+  ],
+  loveEvents: [],
+  loveWishes: [
     {
       id: 1,
-      title: "第一次认真计划未来",
-      body: "从散步聊天开始，把旅行、学习和生活一点点写进同一本计划里。",
-      eventDate: "2024-01-01",
+      title: "一起出国旅行",
+      note: "带相机、护照和一本小本子，把路上的风景都贴进去。",
+      imageUrl: asset("wishes/wish-travel.png"),
+      completed: false,
       sortOrder: 10,
     },
     {
       id: 2,
-      title: "值得纪念的小日子",
-      body: "不用等到盛大的节日，普通的一天也可以因为被记住而发光。",
-      eventDate: "2024-05-20",
+      title: "一起过小肥生活",
+      note: "认真吃饭，认真散步，也认真把普通日子过得软乎乎。",
+      imageUrl: asset("wishes/wish-chubby-life.png"),
+      completed: false,
       sortOrder: 20,
     },
     {
       id: 3,
-      title: "一起去看世界",
-      body: "愿照片墙越来越满，愿每一次出发都有新的故事。",
-      eventDate: "2025-10-01",
+      title: "顺利毕业",
+      note: "一起稳稳走过这一段，把努力和好消息都带到下一站。",
+      imageUrl: asset("wishes/wish-graduation-study.png"),
+      completed: false,
       sortOrder: 30,
     },
-  ],
-  loveWishes: [
-    { id: 1, title: "一起看一场海边日落", note: "带相机，也带一件薄外套。", completed: false, sortOrder: 10 },
-    { id: 2, title: "做一本年度相册", note: "把照片、票根和一句话日记排成一本小书。", completed: false, sortOrder: 20 },
-    { id: 3, title: "完成一次没有赶路的旅行", note: "每天只安排一个目的地，其余时间留给随机。", completed: false, sortOrder: 30 },
   ],
   quarterGoals: [
     {
@@ -115,15 +176,6 @@ const fallbackData: SiteData = {
       status: "进行中",
       sortOrder: 20,
     },
-    {
-      id: 3,
-      quarter: "2026 Q4",
-      title: "规划年末旅行",
-      note: "确定目的地、预算、时间和想拍的照片主题。",
-      progress: 10,
-      status: "计划中",
-      sortOrder: 30,
-    },
   ],
   travelPlans: [
     { id: 1, destination: "京都", timeRange: "秋天", note: "枫叶、老街、胶片感照片和慢慢走的下午。", status: "想去", imageUrl: "", sortOrder: 10 },
@@ -140,42 +192,6 @@ const tableByCollection: Record<CollectionName, string> = {
   travelPlans: "travel_plans",
 };
 
-function supabaseConfig() {
-  const url = process.env.SUPABASE_URL?.replace(/\/$/, "");
-  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!url || !serviceKey) return null;
-  return { url, serviceKey };
-}
-
-function headers(prefer?: string) {
-  const config = supabaseConfig();
-  if (!config) throw new Error("Supabase is not configured.");
-  return {
-    apikey: config.serviceKey,
-    authorization: `Bearer ${config.serviceKey}`,
-    "content-type": "application/json",
-    ...(prefer ? { prefer } : {}),
-  };
-}
-
-async function supabaseFetch<T>(path: string, init?: RequestInit): Promise<T> {
-  const config = supabaseConfig();
-  if (!config) throw new Error("Supabase is not configured.");
-  const response = await fetch(`${config.url}${path}`, {
-    ...init,
-    headers: {
-      ...headers(),
-      ...(init?.headers ?? {}),
-    },
-    cache: "no-store",
-  });
-  if (!response.ok) {
-    throw new Error(await response.text());
-  }
-  if (response.status === 204) return undefined as T;
-  return response.json() as Promise<T>;
-}
-
 function text(row: Row, key: string) {
   return String(row[key] ?? "");
 }
@@ -188,40 +204,96 @@ function bool(row: Row, key: string) {
   return Boolean(row[key]);
 }
 
-async function seedIfEmpty() {
-  const rows = await supabaseFetch<Row[]>("/rest/v1/site_settings?select=key&limit=1");
-  if (rows.length) return;
+function db() {
+  return getRuntimeEnv()?.DB ?? null;
+}
+
+async function runAll(database: D1Database, sql: string, ...binds: unknown[]) {
+  return database.prepare(sql).bind(...binds).all<Row>();
+}
+
+async function exec(database: D1Database, sql: string, ...binds: unknown[]) {
+  return database.prepare(sql).bind(...binds).run();
+}
+
+async function ensureSchema(database: D1Database) {
+  await database.batch([
+    database.prepare(
+      "CREATE TABLE IF NOT EXISTS site_settings (key text PRIMARY KEY, value text NOT NULL DEFAULT '', updated_at text NOT NULL DEFAULT CURRENT_TIMESTAMP)"
+    ),
+    database.prepare(
+      "CREATE TABLE IF NOT EXISTS content_blocks (key text PRIMARY KEY, value text NOT NULL DEFAULT '', updated_at text NOT NULL DEFAULT CURRENT_TIMESTAMP)"
+    ),
+    database.prepare(
+      "CREATE TABLE IF NOT EXISTS workspace_items (id integer PRIMARY KEY AUTOINCREMENT, category text NOT NULL, title text NOT NULL, body text NOT NULL DEFAULT '', item_date text NOT NULL DEFAULT '', image_url text NOT NULL DEFAULT '', pinned integer NOT NULL DEFAULT 0, sort_order integer NOT NULL DEFAULT 0, created_at text NOT NULL DEFAULT CURRENT_TIMESTAMP)"
+    ),
+    database.prepare(
+      "CREATE TABLE IF NOT EXISTS photos (id integer PRIMARY KEY AUTOINCREMENT, scope text NOT NULL, title text NOT NULL DEFAULT '', caption text NOT NULL DEFAULT '', url text NOT NULL, object_key text NOT NULL DEFAULT '', sort_order integer NOT NULL DEFAULT 0, created_at text NOT NULL DEFAULT CURRENT_TIMESTAMP)"
+    ),
+    database.prepare(
+      "CREATE TABLE IF NOT EXISTS love_events (id integer PRIMARY KEY AUTOINCREMENT, title text NOT NULL, body text NOT NULL DEFAULT '', event_date text NOT NULL DEFAULT '', sort_order integer NOT NULL DEFAULT 0, created_at text NOT NULL DEFAULT CURRENT_TIMESTAMP)"
+    ),
+    database.prepare(
+      "CREATE TABLE IF NOT EXISTS love_wishes (id integer PRIMARY KEY AUTOINCREMENT, title text NOT NULL, note text NOT NULL DEFAULT '', image_url text NOT NULL DEFAULT '', completed integer NOT NULL DEFAULT 0, sort_order integer NOT NULL DEFAULT 0, created_at text NOT NULL DEFAULT CURRENT_TIMESTAMP)"
+    ),
+    database.prepare(
+      "CREATE TABLE IF NOT EXISTS quarter_goals (id integer PRIMARY KEY AUTOINCREMENT, quarter text NOT NULL, title text NOT NULL, note text NOT NULL DEFAULT '', progress integer NOT NULL DEFAULT 0, status text NOT NULL DEFAULT '进行中', sort_order integer NOT NULL DEFAULT 0, created_at text NOT NULL DEFAULT CURRENT_TIMESTAMP)"
+    ),
+    database.prepare(
+      "CREATE TABLE IF NOT EXISTS travel_plans (id integer PRIMARY KEY AUTOINCREMENT, destination text NOT NULL, time_range text NOT NULL DEFAULT '', note text NOT NULL DEFAULT '', status text NOT NULL DEFAULT '计划中', image_url text NOT NULL DEFAULT '', sort_order integer NOT NULL DEFAULT 0, created_at text NOT NULL DEFAULT CURRENT_TIMESTAMP)"
+    ),
+  ]);
+
+  const info = await runAll(database, "PRAGMA table_info(love_wishes)");
+  if (!info.results.some((row) => text(row, "name") === "image_url")) {
+    await exec(database, "ALTER TABLE love_wishes ADD COLUMN image_url text NOT NULL DEFAULT ''");
+  }
+}
+
+export async function seedIfEmpty() {
+  const database = db();
+  if (!database) return;
+  await ensureSchema(database);
+  const existing = await runAll(database, "SELECT key FROM content_blocks LIMIT 1");
+  if (existing.results.length) return;
+
   await saveSettings(fallbackData.settings);
-  await Promise.all(
-    (Object.keys(tableByCollection) as CollectionName[]).map((collection) =>
-      saveCollection(collection, fallbackData[collection])
-    )
-  );
+  await saveContentBlocks(fallbackData.contentBlocks);
+  for (const collection of Object.keys(tableByCollection) as CollectionName[]) {
+    await saveCollection(collection, fallbackData[collection]);
+  }
 }
 
 export async function getSiteData(): Promise<SiteData> {
-  if (!supabaseConfig()) return fallbackData;
+  const database = db();
+  if (!database) return fallbackData;
   await seedIfEmpty();
-  const [settingsRows, workspaceRows, photoRows, eventRows, wishRows, goalRows, tripRows] =
+
+  const [settingsRows, contentRows, workspaceRows, photoRows, eventRows, wishRows, goalRows, tripRows] =
     await Promise.all([
-      supabaseFetch<Row[]>("/rest/v1/site_settings?select=key,value"),
-      supabaseFetch<Row[]>("/rest/v1/workspace_items?select=*&order=pinned.desc,sort_order.asc,id.desc"),
-      supabaseFetch<Row[]>("/rest/v1/photos?select=*&order=sort_order.asc,id.desc"),
-      supabaseFetch<Row[]>("/rest/v1/love_events?select=*&order=sort_order.asc,event_date.asc,id.asc"),
-      supabaseFetch<Row[]>("/rest/v1/love_wishes?select=*&order=completed.asc,sort_order.asc,id.asc"),
-      supabaseFetch<Row[]>("/rest/v1/quarter_goals?select=*&order=quarter.asc,sort_order.asc,id.asc"),
-      supabaseFetch<Row[]>("/rest/v1/travel_plans?select=*&order=sort_order.asc,id.asc"),
+      runAll(database, "SELECT key, value FROM site_settings"),
+      runAll(database, "SELECT key, value FROM content_blocks"),
+      runAll(database, "SELECT * FROM workspace_items ORDER BY pinned DESC, sort_order ASC, id DESC"),
+      runAll(database, "SELECT * FROM photos ORDER BY sort_order ASC, id ASC"),
+      runAll(database, "SELECT * FROM love_events ORDER BY sort_order ASC, event_date ASC, id ASC"),
+      runAll(database, "SELECT * FROM love_wishes ORDER BY completed ASC, sort_order ASC, id ASC"),
+      runAll(database, "SELECT * FROM quarter_goals ORDER BY quarter ASC, sort_order ASC, id ASC"),
+      runAll(database, "SELECT * FROM travel_plans ORDER BY sort_order ASC, id ASC"),
     ]);
 
   const settings = { ...defaultSettings };
-  for (const row of settingsRows) {
+  for (const row of settingsRows.results) {
     const key = text(row, "key") as keyof SiteSettings;
     if (key in settings) settings[key] = text(row, "value");
   }
 
+  const contentBlocks = { ...defaultContentBlocks };
+  for (const row of contentRows.results) contentBlocks[text(row, "key")] = text(row, "value");
+
   return {
     settings,
-    workspaceItems: workspaceRows.map((row): WorkspaceItem => ({
+    contentBlocks,
+    workspaceItems: workspaceRows.results.map((row): WorkspaceItem => ({
       id: num(row, "id"),
       category: text(row, "category"),
       title: text(row, "title"),
@@ -231,7 +303,7 @@ export async function getSiteData(): Promise<SiteData> {
       pinned: bool(row, "pinned"),
       sortOrder: num(row, "sort_order"),
     })),
-    photos: photoRows.map((row): Photo => ({
+    photos: photoRows.results.map((row): Photo => ({
       id: num(row, "id"),
       scope: text(row, "scope"),
       title: text(row, "title"),
@@ -240,21 +312,22 @@ export async function getSiteData(): Promise<SiteData> {
       objectKey: text(row, "object_key"),
       sortOrder: num(row, "sort_order"),
     })),
-    loveEvents: eventRows.map((row): LoveEvent => ({
+    loveEvents: eventRows.results.map((row): LoveEvent => ({
       id: num(row, "id"),
       title: text(row, "title"),
       body: text(row, "body"),
       eventDate: text(row, "event_date"),
       sortOrder: num(row, "sort_order"),
     })),
-    loveWishes: wishRows.map((row): LoveWish => ({
+    loveWishes: wishRows.results.map((row): LoveWish => ({
       id: num(row, "id"),
       title: text(row, "title"),
       note: text(row, "note"),
+      imageUrl: text(row, "image_url"),
       completed: bool(row, "completed"),
       sortOrder: num(row, "sort_order"),
     })),
-    quarterGoals: goalRows.map((row): QuarterGoal => ({
+    quarterGoals: goalRows.results.map((row): QuarterGoal => ({
       id: num(row, "id"),
       quarter: text(row, "quarter"),
       title: text(row, "title"),
@@ -263,7 +336,7 @@ export async function getSiteData(): Promise<SiteData> {
       status: text(row, "status"),
       sortOrder: num(row, "sort_order"),
     })),
-    travelPlans: tripRows.map((row): TravelPlan => ({
+    travelPlans: tripRows.results.map((row): TravelPlan => ({
       id: num(row, "id"),
       destination: text(row, "destination"),
       timeRange: text(row, "time_range"),
@@ -276,83 +349,105 @@ export async function getSiteData(): Promise<SiteData> {
 }
 
 export async function saveSettings(settings: SiteSettings) {
-  const payload = Object.entries(settings).map(([key, value]) => ({ key, value }));
-  await supabaseFetch("/rest/v1/site_settings?on_conflict=key", {
-    method: "POST",
-    headers: headers("resolution=merge-duplicates"),
-    body: JSON.stringify(payload),
-  });
+  const database = db();
+  if (!database) return;
+  await ensureSchema(database);
+  const statements = Object.entries(settings).map(([key, value]) =>
+    database
+      .prepare("INSERT INTO site_settings (key, value, updated_at) VALUES (?, ?, CURRENT_TIMESTAMP) ON CONFLICT(key) DO UPDATE SET value = excluded.value, updated_at = CURRENT_TIMESTAMP")
+      .bind(key, value ?? "")
+  );
+  if (statements.length) await database.batch(statements);
 }
 
-function toRows(collection: CollectionName, items: unknown[]) {
+export async function saveContentBlocks(blocks: Record<string, string>) {
+  const database = db();
+  if (!database) return;
+  await ensureSchema(database);
+  const statements = Object.entries(blocks).map(([key, value]) =>
+    database
+      .prepare("INSERT INTO content_blocks (key, value, updated_at) VALUES (?, ?, CURRENT_TIMESTAMP) ON CONFLICT(key) DO UPDATE SET value = excluded.value, updated_at = CURRENT_TIMESTAMP")
+      .bind(key, value ?? "")
+  );
+  if (statements.length) await database.batch(statements);
+}
+
+function rowsForCollection(collection: CollectionName, items: unknown[]) {
   if (collection === "workspaceItems") {
-    return (items as WorkspaceItem[]).map((item, index) => ({
-      category: item.category,
-      title: item.title,
-      body: item.body,
-      item_date: item.itemDate,
-      image_url: item.imageUrl,
-      pinned: item.pinned,
-      sort_order: item.sortOrder || (index + 1) * 10,
-    }));
+    return (items as WorkspaceItem[]).map((item, index) => [
+      item.category,
+      item.title,
+      item.body,
+      item.itemDate,
+      item.imageUrl,
+      item.pinned ? 1 : 0,
+      item.sortOrder || (index + 1) * 10,
+    ]);
   }
   if (collection === "photos") {
-    return (items as Photo[]).map((item, index) => ({
-      scope: item.scope,
-      title: item.title,
-      caption: item.caption,
-      url: item.url,
-      object_key: item.objectKey,
-      sort_order: item.sortOrder || (index + 1) * 10,
-    }));
+    return (items as Photo[]).map((item, index) => [
+      item.scope,
+      item.title,
+      item.caption,
+      item.url,
+      item.objectKey,
+      item.sortOrder || (index + 1) * 10,
+    ]);
   }
   if (collection === "loveEvents") {
-    return (items as LoveEvent[]).map((item, index) => ({
-      title: item.title,
-      body: item.body,
-      event_date: item.eventDate,
-      sort_order: item.sortOrder || (index + 1) * 10,
-    }));
+    return (items as LoveEvent[]).map((item, index) => [
+      item.title,
+      item.body,
+      item.eventDate,
+      item.sortOrder || (index + 1) * 10,
+    ]);
   }
   if (collection === "loveWishes") {
-    return (items as LoveWish[]).map((item, index) => ({
-      title: item.title,
-      note: item.note,
-      completed: item.completed,
-      sort_order: item.sortOrder || (index + 1) * 10,
-    }));
+    return (items as LoveWish[]).map((item, index) => [
+      item.title,
+      item.note,
+      item.imageUrl,
+      item.completed ? 1 : 0,
+      item.sortOrder || (index + 1) * 10,
+    ]);
   }
   if (collection === "quarterGoals") {
-    return (items as QuarterGoal[]).map((item, index) => ({
-      quarter: item.quarter,
-      title: item.title,
-      note: item.note,
-      progress: item.progress,
-      status: item.status,
-      sort_order: item.sortOrder || (index + 1) * 10,
-    }));
+    return (items as QuarterGoal[]).map((item, index) => [
+      item.quarter,
+      item.title,
+      item.note,
+      item.progress,
+      item.status,
+      item.sortOrder || (index + 1) * 10,
+    ]);
   }
-  return (items as TravelPlan[]).map((item, index) => ({
-    destination: item.destination,
-    time_range: item.timeRange,
-    note: item.note,
-    status: item.status,
-    image_url: item.imageUrl,
-    sort_order: item.sortOrder || (index + 1) * 10,
-  }));
+  return (items as TravelPlan[]).map((item, index) => [
+    item.destination,
+    item.timeRange,
+    item.note,
+    item.status,
+    item.imageUrl,
+    item.sortOrder || (index + 1) * 10,
+  ]);
 }
 
+const insertSql: Record<CollectionName, string> = {
+  workspaceItems:
+    "INSERT INTO workspace_items (category, title, body, item_date, image_url, pinned, sort_order) VALUES (?, ?, ?, ?, ?, ?, ?)",
+  photos: "INSERT INTO photos (scope, title, caption, url, object_key, sort_order) VALUES (?, ?, ?, ?, ?, ?)",
+  loveEvents: "INSERT INTO love_events (title, body, event_date, sort_order) VALUES (?, ?, ?, ?)",
+  loveWishes: "INSERT INTO love_wishes (title, note, image_url, completed, sort_order) VALUES (?, ?, ?, ?, ?)",
+  quarterGoals: "INSERT INTO quarter_goals (quarter, title, note, progress, status, sort_order) VALUES (?, ?, ?, ?, ?, ?)",
+  travelPlans: "INSERT INTO travel_plans (destination, time_range, note, status, image_url, sort_order) VALUES (?, ?, ?, ?, ?, ?)",
+};
+
 export async function saveCollection(collection: CollectionName, items: unknown[]) {
+  const database = db();
+  if (!database) return;
+  await ensureSchema(database);
   const table = tableByCollection[collection];
-  await supabaseFetch(`/rest/v1/${table}?id=not.is.null`, {
-    method: "DELETE",
-    headers: headers("return=minimal"),
-  });
-  const rows = toRows(collection, items);
+  await exec(database, `DELETE FROM ${table}`);
+  const rows = rowsForCollection(collection, items);
   if (!rows.length) return;
-  await supabaseFetch(`/rest/v1/${table}`, {
-    method: "POST",
-    headers: headers("return=minimal"),
-    body: JSON.stringify(rows),
-  });
+  await database.batch(rows.map((row) => database.prepare(insertSql[collection]).bind(...row)));
 }

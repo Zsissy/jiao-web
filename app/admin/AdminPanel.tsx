@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import type {
+  ContentBlock,
   LoveEvent,
   LoveWish,
   Photo,
@@ -13,7 +14,7 @@ import type {
   WorkspaceItem,
 } from "../lib/types";
 
-type CollectionName = keyof Omit<SiteData, "settings">;
+type CollectionName = keyof Omit<SiteData, "settings" | "contentBlocks">;
 
 const blankWorkspace: WorkspaceItem = {
   id: 0,
@@ -37,25 +38,48 @@ const blankPhoto: Photo = {
 };
 
 const blankEvent: LoveEvent = { id: 0, title: "", body: "", eventDate: "", sortOrder: 0 };
-const blankWish: LoveWish = { id: 0, title: "", note: "", completed: false, sortOrder: 0 };
-const blankGoal: QuarterGoal = {
-  id: 0,
-  quarter: "2026 Q3",
-  title: "",
-  note: "",
-  progress: 0,
-  status: "进行中",
-  sortOrder: 0,
-};
-const blankTrip: TravelPlan = {
-  id: 0,
-  destination: "",
-  timeRange: "",
-  note: "",
-  status: "计划中",
-  imageUrl: "",
-  sortOrder: 0,
-};
+const blankWish: LoveWish = { id: 0, title: "", note: "", imageUrl: "", completed: false, sortOrder: 0 };
+const blankGoal: QuarterGoal = { id: 0, quarter: "2026 Q3", title: "", note: "", progress: 0, status: "进行中", sortOrder: 0 };
+const blankTrip: TravelPlan = { id: 0, destination: "", timeRange: "", note: "", status: "计划中", imageUrl: "", sortOrder: 0 };
+
+const contentLabels: ContentBlock[] = [
+  { key: "nav.brand", value: "导航品牌" },
+  { key: "nav.workspace", value: "导航 workspace" },
+  { key: "nav.love", value: "导航 love story" },
+  { key: "nav.future", value: "导航 future" },
+  { key: "nav.admin", value: "导航 admin" },
+  { key: "hero.kicker", value: "首页小标题" },
+  { key: "hero.title", value: "首页大标题" },
+  { key: "identity.student", value: "身份标签 student" },
+  { key: "identity.law", value: "身份标签 law" },
+  { key: "identity.admin", value: "身份标签 administration" },
+  { key: "identity.soulmate", value: "身份标签 soulmate" },
+  { key: "module.workspace.eyebrow", value: "workspace 便签小字" },
+  { key: "module.workspace.title", value: "workspace 标题" },
+  { key: "module.workspace.copy", value: "workspace 文案" },
+  { key: "module.love.eyebrow", value: "love story 便签小字" },
+  { key: "module.love.title", value: "love story 标题" },
+  { key: "module.love.copy", value: "love story 文案" },
+  { key: "module.future.eyebrow", value: "future 便签小字" },
+  { key: "module.future.title", value: "future 标题" },
+  { key: "module.future.copy", value: "future 文案" },
+  { key: "workspace.heading.title", value: "workspace 区块标题" },
+  { key: "workspace.heading.subtitle", value: "workspace 区块说明" },
+  { key: "love.heading.title", value: "love story 区块标题" },
+  { key: "love.heading.subtitle", value: "love story 区块说明" },
+  { key: "love.timeline.title", value: "时间线标题" },
+  { key: "love.apart.prefix", value: "分别天数前缀" },
+  { key: "love.apart.suffix", value: "分别天数后缀" },
+  { key: "love.apart.body", value: "分别模块正文" },
+  { key: "love.wishes.title", value: "愿望清单标题" },
+  { key: "future.heading.title", value: "future 区块标题" },
+  { key: "future.heading.subtitle", value: "future 区块说明" },
+  { key: "future.goals.title", value: "季度目标标题" },
+  { key: "future.travel.title", value: "旅行计划标题" },
+  { key: "admin.heading.title", value: "说明区标题" },
+  { key: "admin.heading.subtitle", value: "说明区副标题" },
+  { key: "admin.body", value: "说明区正文" },
+];
 
 function resequence<T extends { sortOrder: number; id: number }>(items: T[]) {
   return items.map((item, index) => ({ ...item, id: item.id || index + 1, sortOrder: (index + 1) * 10 }));
@@ -100,7 +124,7 @@ export function AdminPanel({ initialData }: { initialData: SiteData }) {
       return;
     }
     setData(result.data);
-    setMessage("已保存，前台页面会读取最新内容。");
+    setMessage("已保存，刷新前台就能看到最新内容。");
   }
 
   async function upload(file: File, applyUrl: (url: string, objectKey: string) => void) {
@@ -114,11 +138,15 @@ export function AdminPanel({ initialData }: { initialData: SiteData }) {
       return;
     }
     applyUrl(result.url, result.objectKey);
-    setMessage("图片已上传，记得保存。");
+    setMessage("图片已上传，记得点击保存全部。");
   }
 
   function updateSettings(key: keyof SiteSettings, value: string) {
     setData((current) => ({ ...current, settings: { ...current.settings, [key]: value } }));
+  }
+
+  function updateText(key: string, value: string) {
+    setData((current) => ({ ...current, contentBlocks: { ...current.contentBlocks, [key]: value } }));
   }
 
   function setCollection<T>(name: CollectionName, items: T[]) {
@@ -134,13 +162,7 @@ export function AdminPanel({ initialData }: { initialData: SiteData }) {
           <h1>管理入口</h1>
           <p>{message}</p>
           <form onSubmit={login}>
-            <input
-              type="password"
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-              placeholder="管理密码"
-              autoComplete="current-password"
-            />
+            <input type="password" value={password} onChange={(event) => setPassword(event.target.value)} placeholder="管理密码" autoComplete="current-password" />
             <button type="submit">进入管理</button>
           </form>
         </section>
@@ -163,19 +185,39 @@ export function AdminPanel({ initialData }: { initialData: SiteData }) {
       </div>
 
       <section className="admin-section">
-        <h2>首页与背景</h2>
+        <h2>固定文字</h2>
         <div className="admin-grid two">
-          <label>首页标题<input value={data.settings.heroTitle} onChange={(e) => updateSettings("heroTitle", e.target.value)} /></label>
+          {contentLabels.map((item) => (
+            <label className={item.key.endsWith(".copy") || item.key.endsWith(".body") ? "wide" : ""} key={item.key}>
+              {item.value}
+              {item.key.endsWith(".copy") || item.key.endsWith(".body") ? (
+                <textarea value={data.contentBlocks[item.key] ?? ""} onChange={(e) => updateText(item.key, e.target.value)} />
+              ) : (
+                <input value={data.contentBlocks[item.key] ?? ""} onChange={(e) => updateText(item.key, e.target.value)} />
+              )}
+            </label>
+          ))}
+        </div>
+      </section>
+
+      <section className="admin-section">
+        <h2>日期与图片</h2>
+        <div className="admin-grid two">
           <label>纪念日名称<input value={data.settings.anniversaryLabel} onChange={(e) => updateSettings("anniversaryLabel", e.target.value)} /></label>
-          <label className="wide">首页副标题<textarea value={data.settings.heroSubtitle} onChange={(e) => updateSettings("heroSubtitle", e.target.value)} /></label>
           <label>纪念日起始日期<input type="date" value={data.settings.anniversaryStart} onChange={(e) => updateSettings("anniversaryStart", e.target.value)} /></label>
+          <label>分别起始日期<input type="date" value={data.settings.apartStart} onChange={(e) => updateSettings("apartStart", e.target.value)} /></label>
         </div>
         <div className="background-editor">
           {([
-            ["homeBackground", "首页背景"],
+            ["profileImage", "首页个人照片"],
             ["workspaceBackground", "workspace 背景"],
-            ["loveBackground", "love story 背景"],
+            ["loveBackground", "love story 文字区背景"],
             ["futureBackground", "future planning 背景"],
+            ["apartSticker", "分别天数表情"],
+            ["stickerWorkStretch", "首页贴纸 1"],
+            ["stickerReadingDog", "首页贴纸 2"],
+            ["stickerNapDog", "首页贴纸 3"],
+            ["stickerWorkBox", "首页贴纸 4"],
           ] as const).map(([key, label]) => (
             <label key={key}>
               {label}
@@ -186,19 +228,11 @@ export function AdminPanel({ initialData }: { initialData: SiteData }) {
         </div>
       </section>
 
-      <CollectionEditor
-        title="workspace"
-        addLabel="新增 workspace 条目"
-        items={data.workspaceItems}
-        blank={blankWorkspace}
-        setItems={(items) => setCollection("workspaceItems", items)}
+      <CollectionEditor title="workspace" addLabel="新增 workspace 条目" items={data.workspaceItems} blank={blankWorkspace} setItems={(items) => setCollection("workspaceItems", items)}
         render={(item, update, index) => (
           <>
             <select value={item.category} onChange={(e) => update({ category: e.target.value })}>
-              <option>学习笔记</option>
-              <option>工作计划</option>
-              <option>月度展望</option>
-              <option>成果备份</option>
+              <option>学习笔记</option><option>工作计划</option><option>月度展望</option><option>成果备份</option>
             </select>
             <input value={item.title} onChange={(e) => update({ title: e.target.value })} placeholder="标题" />
             <input value={item.itemDate} onChange={(e) => update({ itemDate: e.target.value })} placeholder="日期或月份" />
@@ -214,31 +248,18 @@ export function AdminPanel({ initialData }: { initialData: SiteData }) {
         )}
       />
 
-      <CollectionEditor
-        title="love story 照片墙"
-        addLabel="新增照片"
-        items={data.photos}
-        blank={blankPhoto}
-        setItems={(items) => setCollection("photos", items)}
+      <CollectionEditor title="love story 照片墙" addLabel="新增照片" items={data.photos} blank={blankPhoto} setItems={(items) => setCollection("photos", items)}
         render={(item, update) => (
           <>
             <input value={item.title} onChange={(e) => update({ title: e.target.value })} placeholder="照片标题" />
-            <input value={item.caption} onChange={(e) => update({ caption: e.target.value })} placeholder="说明" />
-            <select value={item.scope} onChange={(e) => update({ scope: e.target.value })}>
-              <option value="love-wall">love story 照片墙</option>
-            </select>
+            <input value={item.caption} onChange={(e) => update({ caption: e.target.value })} placeholder="拍立得文字" />
             <input value={item.url} onChange={(e) => update({ url: e.target.value })} placeholder="图片地址" />
             <input type="file" accept="image/*" onChange={(e) => e.target.files?.[0] && upload(e.target.files[0], (url, objectKey) => update({ url, objectKey }))} />
           </>
         )}
       />
 
-      <CollectionEditor
-        title="恋爱时间线"
-        addLabel="新增时间线"
-        items={data.loveEvents}
-        blank={blankEvent}
-        setItems={(items) => setCollection("loveEvents", items)}
+      <CollectionEditor title="恋爱时间线" addLabel="新增时间线" items={data.loveEvents} blank={blankEvent} setItems={(items) => setCollection("loveEvents", items)}
         render={(item, update) => (
           <>
             <input value={item.title} onChange={(e) => update({ title: e.target.value })} placeholder="标题" />
@@ -248,27 +269,19 @@ export function AdminPanel({ initialData }: { initialData: SiteData }) {
         )}
       />
 
-      <CollectionEditor
-        title="愿望清单"
-        addLabel="新增愿望"
-        items={data.loveWishes}
-        blank={blankWish}
-        setItems={(items) => setCollection("loveWishes", items)}
+      <CollectionEditor title="愿望清单" addLabel="新增愿望" items={data.loveWishes} blank={blankWish} setItems={(items) => setCollection("loveWishes", items)}
         render={(item, update) => (
           <>
             <input value={item.title} onChange={(e) => update({ title: e.target.value })} placeholder="愿望" />
             <label className="checkbox"><input type="checkbox" checked={item.completed} onChange={(e) => update({ completed: e.target.checked })} />已完成</label>
             <textarea value={item.note} onChange={(e) => update({ note: e.target.value })} placeholder="备注" />
+            <input value={item.imageUrl} onChange={(e) => update({ imageUrl: e.target.value })} placeholder="表情图片地址" />
+            <input type="file" accept="image/*" onChange={(e) => e.target.files?.[0] && upload(e.target.files[0], (url) => update({ imageUrl: url }))} />
           </>
         )}
       />
 
-      <CollectionEditor
-        title="季度目标"
-        addLabel="新增目标"
-        items={data.quarterGoals}
-        blank={blankGoal}
-        setItems={(items) => setCollection("quarterGoals", items)}
+      <CollectionEditor title="季度目标" addLabel="新增目标" items={data.quarterGoals} blank={blankGoal} setItems={(items) => setCollection("quarterGoals", items)}
         render={(item, update) => (
           <>
             <input value={item.quarter} onChange={(e) => update({ quarter: e.target.value })} placeholder="季度，如 2026 Q3" />
@@ -280,12 +293,7 @@ export function AdminPanel({ initialData }: { initialData: SiteData }) {
         )}
       />
 
-      <CollectionEditor
-        title="旅行计划"
-        addLabel="新增旅行"
-        items={data.travelPlans}
-        blank={blankTrip}
-        setItems={(items) => setCollection("travelPlans", items)}
+      <CollectionEditor title="旅行计划" addLabel="新增旅行" items={data.travelPlans} blank={blankTrip} setItems={(items) => setCollection("travelPlans", items)}
         render={(item, update) => (
           <>
             <input value={item.destination} onChange={(e) => update({ destination: e.target.value })} placeholder="目的地" />

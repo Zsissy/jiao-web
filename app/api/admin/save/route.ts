@@ -1,5 +1,5 @@
 import { isAdminRequest } from "../../../lib/auth";
-import { getSiteData, saveCollection, saveSettings } from "../../../lib/data";
+import { getSiteData, saveCollection, saveContentBlocks, saveSettings } from "../../../lib/data";
 import type { SiteData } from "../../../lib/types";
 
 export const dynamic = "force-dynamic";
@@ -19,9 +19,8 @@ export async function POST(request: Request) {
   }
 
   const payload = (await request.json()) as Partial<SiteData>;
-  if (payload.settings) {
-    await saveSettings(payload.settings);
-  }
+  if (payload.settings) await saveSettings(payload.settings);
+  if (payload.contentBlocks) await saveContentBlocks(payload.contentBlocks);
   for (const collection of collections) {
     if (Array.isArray(payload[collection])) {
       await saveCollection(collection, payload[collection] ?? []);

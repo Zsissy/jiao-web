@@ -7,6 +7,12 @@ export const siteSettings = sqliteTable("site_settings", {
   updatedAt: text("updated_at").notNull().default(sql`CURRENT_TIMESTAMP`),
 });
 
+export const contentBlocks = sqliteTable("content_blocks", {
+  key: text("key").primaryKey(),
+  value: text("value").notNull().default(""),
+  updatedAt: text("updated_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+});
+
 export const workspaceItems = sqliteTable("workspace_items", {
   id: integer("id").primaryKey({ autoIncrement: true }),
   category: text("category").notNull(),
@@ -43,6 +49,7 @@ export const loveWishes = sqliteTable("love_wishes", {
   id: integer("id").primaryKey({ autoIncrement: true }),
   title: text("title").notNull(),
   note: text("note").notNull().default(""),
+  imageUrl: text("image_url").notNull().default(""),
   completed: integer("completed", { mode: "boolean" }).notNull().default(false),
   sortOrder: integer("sort_order").notNull().default(0),
   createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
