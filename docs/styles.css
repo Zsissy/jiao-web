@@ -1333,18 +1333,19 @@ h1 {
 
 .workspace-scene article {
   border: 1px solid rgba(255, 255, 255, 0.68);
-  background: rgba(255, 255, 255, 0.08);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.76), 0 14px 32px rgba(22, 93, 105, 0.11);
-  color: #12363d;
+  background: rgba(248, 255, 255, 0.34);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.78), 0 14px 30px rgba(22, 93, 105, 0.1);
+  color: #082f35;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.42);
 }
 
 .workspace-scene article span {
-  color: #0b7483;
+  color: #006c78;
 }
 
 .workspace-scene .section-heading span,
 .workspace-scene article p {
-  color: rgba(18, 54, 61, 0.78);
+  color: rgba(8, 47, 53, 0.86);
 }
 
 .love-notes {
@@ -1379,17 +1380,18 @@ h1 {
 
 .love-notes article {
   border: 1px solid rgba(255, 255, 255, 0.74);
-  background: rgba(255, 255, 255, 0.12);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.82), 0 14px 32px rgba(83, 85, 78, 0.1);
-  color: #2f2f2b;
+  background: rgba(255, 255, 250, 0.38);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.82), 0 14px 30px rgba(83, 85, 78, 0.09);
+  color: #22221f;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.48);
 }
 
 .love-notes article span {
-  color: #7d8f65;
+  color: #728153;
 }
 
 .love-notes article p {
-  color: rgba(47, 47, 43, 0.72);
+  color: rgba(34, 34, 31, 0.82);
 }
 
 .love-notes > section:first-child {
@@ -1425,18 +1427,19 @@ h1 {
 
 .future-scene article {
   border: 1px solid rgba(255, 255, 255, 0.7);
-  background: rgba(255, 255, 255, 0.1);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8), 0 14px 32px rgba(63, 91, 86, 0.1);
-  color: #23434a;
+  background: rgba(246, 255, 248, 0.34);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8), 0 14px 30px rgba(63, 91, 86, 0.09);
+  color: #16393f;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.45);
 }
 
 .future-scene article span {
-  color: #d78b3f;
+  color: #b9662e;
 }
 
 .future-scene .section-heading span,
 .future-scene article p {
-  color: rgba(35, 67, 74, 0.76);
+  color: rgba(22, 57, 63, 0.84);
 }
 
 .future-scene .progress {
@@ -1528,7 +1531,8 @@ article h3,
 }
 
 .wish-heading img[alt="graduation sticker"] {
-  height: 82px;
+  height: 98px;
+  max-width: 250px;
   transform: rotate(2deg);
 }
 
