@@ -82,14 +82,38 @@
     "apartSuffix": "天",
     "apartBody": "把想念认真存起来，等见面的时候一点点还给彼此。",
     "photos": [
-      { "src": "./assets/love/love-01.jpg", "caption": "fountain day" },
-      { "src": "./assets/love/love-03.jpg", "caption": "study with you" },
-      { "src": "./assets/love/love-08.jpg", "caption": "sunlit shadow" },
-      { "src": "./assets/love/love-07.jpg", "caption": "on the way" },
-      { "src": "./assets/love/love-02.jpg", "caption": "soft dance" },
-      { "src": "./assets/love/love-06.jpg", "caption": "spring kiss" },
-      { "src": "./assets/love/love-04.jpg", "caption": "little mirror" },
-      { "src": "./assets/love/love-05.jpg", "caption": "bright noon" }
+      {
+        "src": "./assets/love/love-01.jpg",
+        "caption": "fountain day"
+      },
+      {
+        "src": "./assets/love/love-03.jpg",
+        "caption": "study with you"
+      },
+      {
+        "src": "./assets/love/love-08.jpg",
+        "caption": "sunlit shadow"
+      },
+      {
+        "src": "./assets/love/love-07.jpg",
+        "caption": "on the way"
+      },
+      {
+        "src": "./assets/love/love-02.jpg",
+        "caption": "soft dance"
+      },
+      {
+        "src": "./assets/love/love-06.jpg",
+        "caption": "spring kiss"
+      },
+      {
+        "src": "./assets/love/love-04.jpg",
+        "caption": "little mirror"
+      },
+      {
+        "src": "./assets/love/love-05.jpg",
+        "caption": "bright noon"
+      }
     ],
     "wishes": [
       {
