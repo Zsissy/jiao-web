@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Jiao Archive · 在线编辑</title>
+    <link rel="stylesheet" href="./admin.css?v=20260715" />
+  </head>
+  <body>
+    <header class="admin-header">
+      <div>
+        <a href="./index.html">← 返回网站</a>
+        <p>JIAO ARCHIVE</p>
+        <h1>在线编辑</h1>
+      </div>
+      <button id="saveButton" type="button">保存全部修改</button>
+    </header>
+
+    <main>
+      <section class="access-panel">
+        <div>
+          <h2>连接你的 GitHub</h2>
+          <p>管理密钥只保存在当前浏览器标签页中，不会写进网页或仓库。创建时仅选择 jiao-web，并将 Contents 权限设为 Read and write。</p>
+        </div>
+        <label>
+          GitHub 管理密钥
+          <input id="tokenInput" type="password" autocomplete="off" placeholder="github_pat_..." />
+        </label>
+        <a class="token-link" href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noreferrer">创建管理密钥</a>
+      </section>
+
+      <p id="status" class="status" role="status">正在读取网站内容…</p>
+      <div id="editor" class="editor" hidden></div>
+    </main>
+
+    <template id="sectionTemplate">
+      <section class="editor-section">
+        <div class="section-title"><h2></h2></div>
+        <div class="fields"></div>
+      </section>
+    </template>
+
+    <script src="./admin.js?v=20260715"></script>
+  </body>
+</html>

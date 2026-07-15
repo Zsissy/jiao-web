@@ -10,27 +10,27 @@
   <body>
     <header class="hero" id="home">
       <nav class="nav">
-        <a class="script-text" href="#home">Jiao Archive</a>
+        <a class="script-text" href="#home" data-content="nav.brand">Jiao Archive</a>
         <div>
-          <a class="script-text" href="#workspace">workspace</a>
-          <a class="script-text" href="#love-story">love story</a>
-          <a class="script-text" href="#future-planning">future</a>
-          <a class="script-text" href="#admin">admin</a>
+          <a class="script-text" href="#workspace" data-content="nav.workspace">workspace</a>
+          <a class="script-text" href="#love-story" data-content="nav.love">love story</a>
+          <a class="script-text" href="#future-planning" data-content="nav.future">future</a>
+          <a class="script-text" href="./admin.html" data-content="nav.admin">admin</a>
         </div>
       </nav>
       <div class="hero-content">
         <div class="hero-copy">
-          <p class="kicker script-text">PERSONAL WEBSITE</p>
-          <h1 class="script-text">Jiao's Living Archive</h1>
+          <p class="kicker script-text" data-content="hero.kicker">PERSONAL WEBSITE</p>
+          <h1 class="script-text" data-content="hero.title">Jiao's Living Archive</h1>
           <div class="hero-stickers" aria-label="personal archive stickers">
-            <img class="hero-sticker sticker-a" src="./assets/stickers/sticker-work-stretch.png" alt="working girl stretching sticker" />
-            <img class="hero-sticker sticker-b" src="./assets/stickers/sticker-reading-dog.png" alt="reading puppy sticker" />
-            <img class="hero-sticker sticker-c" src="./assets/stickers/sticker-nap-dog.png" alt="two puppies resting sticker" />
-            <img class="hero-sticker sticker-d" src="./assets/stickers/sticker-work-box.png" alt="work box girl sticker" />
+            <img class="hero-sticker sticker-a" data-image="images.stickerWorkStretch" src="./assets/stickers/sticker-work-stretch.png" alt="working girl stretching sticker" />
+            <img class="hero-sticker sticker-b" data-image="images.stickerReadingDog" src="./assets/stickers/sticker-reading-dog.png" alt="reading puppy sticker" />
+            <img class="hero-sticker sticker-c" data-image="images.stickerNapDog" src="./assets/stickers/sticker-nap-dog.png" alt="two puppies resting sticker" />
+            <img class="hero-sticker sticker-d" data-image="images.stickerWorkBox" src="./assets/stickers/sticker-work-box.png" alt="work box girl sticker" />
           </div>
         </div>
         <figure class="profile-feature" aria-label="personal portrait and identity notes">
-          <img src="./assets/profile.jpg" alt="Jiao holding flowers beside a fountain" />
+          <img data-image="images.profile" src="./assets/profile.jpg" alt="Jiao holding flowers beside a fountain" />
           <svg class="identity-map" viewBox="0 0 520 560" aria-hidden="true">
             <defs>
               <marker id="arrowTip" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
@@ -42,10 +42,10 @@
             <path class="arrow-line admin-line" d="M410 438 C452 476 482 512 506 548" />
             <path class="arrow-line soulmate-line" d="M142 440 C96 482 62 514 28 548" />
           </svg>
-          <span class="identity-tag student-tag script-text">student</span>
-          <span class="identity-tag law-tag script-text">law exploring</span>
-          <span class="identity-tag admin-tag script-text">administration management</span>
-          <span class="identity-tag soulmate-tag script-text">soulmate with june</span>
+          <span class="identity-tag student-tag script-text" data-content="identity.student">student</span>
+          <span class="identity-tag law-tag script-text" data-content="identity.law">law exploring</span>
+          <span class="identity-tag admin-tag script-text" data-content="identity.admin">administration management</span>
+          <span class="identity-tag soulmate-tag script-text" data-content="identity.soulmate">soulmate with june</span>
         </figure>
       </div>
     </header>
@@ -53,28 +53,28 @@
     <main>
       <section class="module-grid" aria-label="网站模块">
         <a class="module-card workspace-cover" href="#workspace">
-          <span>学习 / 工作 / 成果</span>
-          <strong class="script-text">workspace</strong>
-          <p>学习笔记、工作计划、月度展望和成果备份，像一本持续生长的个人档案。</p>
+          <span data-content="module.workspace.eyebrow">学习 / 工作 / 成果</span>
+          <strong class="script-text" data-content="module.workspace.title">workspace</strong>
+          <p data-content="module.workspace.copy">学习笔记、工作计划、月度展望和成果备份，像一本持续生长的个人档案。</p>
         </a>
         <a class="module-card love-cover" href="#love-story">
-          <span>照片 / 纪念日 / 心愿</span>
-          <strong class="script-text">love story</strong>
-          <p>照片墙、纪念日、重要时刻和想一起完成的小愿望。</p>
+          <span data-content="module.love.eyebrow">照片 / 纪念日 / 心愿</span>
+          <strong class="script-text" data-content="module.love.title">love story</strong>
+          <p data-content="module.love.copy">照片墙、纪念日、重要时刻和想一起完成的小愿望。</p>
         </a>
         <a class="module-card future-cover" href="#future-planning">
-          <span>季度目标 / 旅行计划</span>
-          <strong class="script-text">future planning</strong>
-          <p>把想抵达的地方和想成为的人，拆成清晰、可回看的计划。</p>
+          <span data-content="module.future.eyebrow">季度目标 / 旅行计划</span>
+          <strong class="script-text" data-content="module.future.title">future planning</strong>
+          <p data-content="module.future.copy">把想抵达的地方和想成为的人，拆成清晰、可回看的计划。</p>
         </a>
       </section>
 
       <section class="page-section scenic-section workspace-scene" id="workspace">
         <div class="section-heading">
-          <p class="script-text">workspace</p>
-          <span>学习笔记 · 工作计划 · 月度展望 · 成果备份</span>
+          <p class="script-text" data-content="workspace.heading.title">workspace</p>
+          <span data-content="workspace.heading.subtitle">学习笔记 · 工作计划 · 月度展望 · 成果备份</span>
         </div>
-        <div class="journal-grid">
+        <div class="journal-grid" id="workspaceItems">
           <article>
             <span>学习笔记 · 2026-07</span>
             <h2>阅读与课程索引</h2>
@@ -100,18 +100,18 @@
 
       <section class="page-section love-section" id="love-story">
         <div class="section-heading">
-          <p class="script-text">love story</p>
-          <span>照片墙 · 纪念日 · 时间线 · 愿望清单</span>
+          <p class="script-text" data-content="love.heading.title">love story</p>
+          <span data-content="love.heading.subtitle">照片墙 · 纪念日 · 时间线 · 愿望清单</span>
         </div>
         <div class="anniversary">
           <div>
-            <p>我们的纪念日</p>
-            <span>from 2022-12-24</span>
+            <p data-content="love.anniversary.label">我们的纪念日</p>
+            <span id="anniversaryFrom">from 2022-12-24</span>
           </div>
           <strong id="daysTogether">0</strong>
-          <em class="script-text">days together</em>
+          <em class="script-text" data-content="love.anniversary.unit">days together</em>
         </div>
-        <div class="scrapbook" aria-label="love story scrapbook">
+        <div class="scrapbook" id="loveScrapbook" aria-label="love story scrapbook">
           <div class="book-page left-page">
             <figure class="polaroid p1">
               <img src="./assets/love/love-01.jpg" alt="June and Jiao by a fountain" />
@@ -153,8 +153,8 @@
           </div>
         </div>
         <div class="split love-notes">
-          <section>
-            <h2>时间线</h2>
+          <section id="loveTimeline">
+            <h2 data-content="love.timeline.title">时间线</h2>
             <article>
               <span>from 2026-06-21</span>
               <h3>和宝宝分别已经 <b id="daysApart">0</b> 天</h3>
@@ -162,8 +162,8 @@
               <p>把想念认真存起来，等见面的时候一点点还给彼此。</p>
             </article>
           </section>
-          <section>
-            <h2>愿望清单</h2>
+          <section id="loveWishes">
+            <h2 data-content="love.wishes.title">愿望清单</h2>
             <article>
               <span>想完成</span>
               <h3 class="wish-heading">一起出国旅行 <img src="./assets/wishes/wish-travel.png" alt="travel sticker" /></h3>
@@ -185,12 +185,12 @@
 
       <section class="page-section scenic-section future-scene" id="future-planning">
         <div class="section-heading">
-          <p class="script-text">future planning</p>
-          <span>季度目标 · 旅行计划</span>
+          <p class="script-text" data-content="future.heading.title">future planning</p>
+          <span data-content="future.heading.subtitle">季度目标 · 旅行计划</span>
         </div>
         <div class="split">
-          <section class="goal-list">
-            <h2>季度目标</h2>
+          <section class="goal-list" id="quarterGoals">
+            <h2 data-content="future.goals.title">季度目标</h2>
             <article>
               <span>2026 Q3 · 进行中</span>
               <h3>建立稳定输出节奏</h3>
@@ -204,8 +204,8 @@
               <div class="progress"><i style="width: 20%"></i></div>
             </article>
           </section>
-          <section class="travel-list">
-            <h2>旅行计划</h2>
+          <section class="travel-list" id="travelPlans">
+            <h2 data-content="future.travel.title">旅行计划</h2>
             <article>
               <span>想去 · 秋天</span>
               <h3>京都</h3>
@@ -222,16 +222,13 @@
 
       <section class="page-section admin-note" id="admin">
         <div class="section-heading">
-          <p class="script-text">static admin</p>
-          <span>静态版说明</span>
+          <p class="script-text" data-content="admin.heading.title">online admin</p>
+          <span data-content="admin.heading.subtitle">在线编辑</span>
         </div>
-        <p>
-          这是 GitHub Pages 可打开的静态版。它适合先分享给朋友查看；后台上传、云端保存和多人同步会在以后接入 Vercel/Netlify
-          与数据库后恢复。现在如需修改内容，可以直接编辑这个仓库里的 <code>docs/index.html</code>。
-        </p>
+        <p data-content="admin.body">点击导航中的 admin，输入 GitHub 管理密钥后即可在线修改文字、照片和背景。保存后，此固定网址会自动更新。</p>
       </section>
     </main>
 
-    <script src="./script.js?v=love-dates-20260715"></script>
+    <script src="./script.js?v=editable-github-20260715"></script>
   </body>
 </html>

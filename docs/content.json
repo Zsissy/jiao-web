@@ -1,0 +1,145 @@
+{
+  "content": {
+    "nav.brand": "Jiao Archive",
+    "nav.workspace": "workspace",
+    "nav.love": "love story",
+    "nav.future": "future",
+    "nav.admin": "admin",
+    "hero.kicker": "PERSONAL WEBSITE",
+    "hero.title": "Jiao's Living Archive",
+    "identity.student": "student",
+    "identity.law": "law exploring",
+    "identity.admin": "administration management",
+    "identity.soulmate": "soulmate with june",
+    "module.workspace.eyebrow": "学习 / 工作 / 成果",
+    "module.workspace.title": "workspace",
+    "module.workspace.copy": "学习笔记、工作计划、月度展望和成果备份，像一本持续生长的个人档案。",
+    "module.love.eyebrow": "照片 / 纪念日 / 心愿",
+    "module.love.title": "love story",
+    "module.love.copy": "照片墙、纪念日、重要时刻和想一起完成的小愿望。",
+    "module.future.eyebrow": "季度目标 / 旅行计划",
+    "module.future.title": "future planning",
+    "module.future.copy": "把想抵达的地方和想成为的人，拆成清晰、可回看的计划。",
+    "workspace.heading.title": "workspace",
+    "workspace.heading.subtitle": "学习笔记 · 工作计划 · 月度展望 · 成果备份",
+    "love.heading.title": "love story",
+    "love.heading.subtitle": "照片墙 · 纪念日 · 时间线 · 愿望清单",
+    "love.anniversary.label": "我们的纪念日",
+    "love.anniversary.from": "from",
+    "love.anniversary.unit": "days together",
+    "love.timeline.title": "时间线",
+    "love.apart.from": "from",
+    "love.wishes.title": "愿望清单",
+    "future.heading.title": "future planning",
+    "future.heading.subtitle": "季度目标 · 旅行计划",
+    "future.goals.title": "季度目标",
+    "future.travel.title": "旅行计划",
+    "admin.heading.title": "online admin",
+    "admin.heading.subtitle": "在线编辑",
+    "admin.body": "点击导航中的 admin，输入 GitHub 管理密钥后即可在线修改文字、照片和背景。保存后，此固定网址会自动更新。"
+  },
+  "images": {
+    "profile": "./assets/profile.jpg",
+    "stickerWorkStretch": "./assets/stickers/sticker-work-stretch.png",
+    "stickerReadingDog": "./assets/stickers/sticker-reading-dog.png",
+    "stickerNapDog": "./assets/stickers/sticker-nap-dog.png",
+    "stickerWorkBox": "./assets/stickers/sticker-work-box.png",
+    "workspaceBackground": "./assets/section-bg/workspace-bg-sketch.jpg",
+    "loveBackground": "./assets/section-bg/love-notes-bg-sketch.jpg",
+    "futureBackground": "./assets/section-bg/future-bg-sketch.jpg",
+    "apartSticker": "./assets/wishes/love-apart.png"
+  },
+  "workspaceItems": [
+    {
+      "category": "学习笔记",
+      "date": "2026-07",
+      "title": "阅读与课程索引",
+      "body": "把最近的阅读、课程、论文和灵感按月份整理，沉淀成可以反复回看的知识地图。"
+    },
+    {
+      "category": "工作计划",
+      "date": "2026-W29",
+      "title": "本周重点",
+      "body": "优先完成最重要的三件事：整理项目节奏、复盘输出、准备下一阶段材料。"
+    },
+    {
+      "category": "月度展望",
+      "date": "2026-07",
+      "title": "七月展望",
+      "body": "保持稳定输入，也给生活留出漂亮的空白。这个月的关键词是节奏、表达、远方。"
+    },
+    {
+      "category": "成果备份",
+      "date": "2026",
+      "title": "阶段成果库",
+      "body": "把交付物、作品截图、重要记录和复盘结论归档，形成可追踪的成长证据。"
+    }
+  ],
+  "love": {
+    "anniversaryStart": "2022-12-24",
+    "apartStart": "2026-06-21",
+    "apartPrefix": "和宝宝分别已经",
+    "apartSuffix": "天",
+    "apartBody": "把想念认真存起来，等见面的时候一点点还给彼此。",
+    "photos": [
+      { "src": "./assets/love/love-01.jpg", "caption": "fountain day" },
+      { "src": "./assets/love/love-03.jpg", "caption": "study with you" },
+      { "src": "./assets/love/love-08.jpg", "caption": "sunlit shadow" },
+      { "src": "./assets/love/love-07.jpg", "caption": "on the way" },
+      { "src": "./assets/love/love-02.jpg", "caption": "soft dance" },
+      { "src": "./assets/love/love-06.jpg", "caption": "spring kiss" },
+      { "src": "./assets/love/love-04.jpg", "caption": "little mirror" },
+      { "src": "./assets/love/love-05.jpg", "caption": "bright noon" }
+    ],
+    "wishes": [
+      {
+        "status": "想完成",
+        "title": "一起出国旅行",
+        "body": "带相机、护照和一本小本子，把路上的风景都贴进去。",
+        "image": "./assets/wishes/wish-travel.png"
+      },
+      {
+        "status": "想完成",
+        "title": "一起过小肥生活",
+        "body": "认真吃饭，认真散步，也认真把普通日子过得软乎乎。",
+        "image": "./assets/wishes/wish-chubby-life.png"
+      },
+      {
+        "status": "想完成",
+        "title": "顺利毕业",
+        "body": "一起稳稳走过这一段，把努力和好消息都带到下一站。",
+        "image": "./assets/wishes/wish-graduation-study.png"
+      }
+    ]
+  },
+  "quarterGoals": [
+    {
+      "quarter": "2026 Q3",
+      "status": "进行中",
+      "title": "建立稳定输出节奏",
+      "body": "每周整理一次学习笔记，每月做一次成果复盘。",
+      "progress": 35
+    },
+    {
+      "quarter": "2026 Q3",
+      "status": "进行中",
+      "title": "升级个人作品集",
+      "body": "把重要作品归档到网站，让朋友也能看到阶段成果。",
+      "progress": 20
+    }
+  ],
+  "travelPlans": [
+    {
+      "status": "想去",
+      "time": "秋天",
+      "destination": "京都",
+      "body": "枫叶、老街、胶片感照片和慢慢走的下午。"
+    },
+    {
+      "status": "计划中",
+      "time": "一个长周末",
+      "destination": "海边城市",
+      "body": "看日落，写一页旅行笔记，给照片墙添一组蓝色。"
+    }
+  ]
+}
