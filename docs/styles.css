@@ -1332,12 +1332,10 @@ h1 {
 }
 
 .workspace-scene article {
-  border: 1px solid rgba(255, 255, 255, 0.52);
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.36), rgba(230, 255, 255, 0.18));
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.62), 0 18px 42px rgba(22, 93, 105, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.68);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.76), 0 14px 32px rgba(22, 93, 105, 0.11);
   color: #12363d;
-  backdrop-filter: blur(18px) saturate(1.22);
-  -webkit-backdrop-filter: blur(18px) saturate(1.22);
 }
 
 .workspace-scene article span {
@@ -1380,12 +1378,10 @@ h1 {
 }
 
 .love-notes article {
-  border: 1px solid rgba(255, 255, 255, 0.66);
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.48), rgba(247, 250, 246, 0.24));
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72), 0 18px 40px rgba(83, 85, 78, 0.13);
+  border: 1px solid rgba(255, 255, 255, 0.74);
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.82), 0 14px 32px rgba(83, 85, 78, 0.1);
   color: #2f2f2b;
-  backdrop-filter: blur(18px) saturate(1.18);
-  -webkit-backdrop-filter: blur(18px) saturate(1.18);
 }
 
 .love-notes article span {
@@ -1428,12 +1424,10 @@ h1 {
 }
 
 .future-scene article {
-  border: 1px solid rgba(255, 255, 255, 0.58);
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.42), rgba(231, 246, 239, 0.22));
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.68), 0 18px 42px rgba(63, 91, 86, 0.13);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8), 0 14px 32px rgba(63, 91, 86, 0.1);
   color: #23434a;
-  backdrop-filter: blur(18px) saturate(1.2);
-  -webkit-backdrop-filter: blur(18px) saturate(1.2);
 }
 
 .future-scene article span {
@@ -1490,6 +1484,13 @@ article,
   backdrop-filter: blur(20px) saturate(1.18);
   -webkit-backdrop-filter: blur(20px) saturate(1.18);
   box-shadow: var(--glass-shadow);
+}
+
+.workspace-scene article,
+.love-notes article,
+.future-scene article {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 }
 
 article {
