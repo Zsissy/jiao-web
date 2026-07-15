@@ -1,4 +1,5 @@
 const DAY = 86400000;
+let workspaceData = [];
 
 function escapeHtml(value) {
   return String(value ?? "")
@@ -29,6 +30,62 @@ function renderScrapbook(photos) {
     <div class="book-page right-page">${items.slice(4).map((item, index) => photo(item, index + 4)).join("")}</div>`;
 }
 
+function workspaceStorageKey(item, index) {
+  return `jiaoWorkspaceTodos:${index}:${item.title || "plan"}`;
+}
+
+function readTodoState(item, index) {
+  try {
+    return JSON.parse(localStorage.getItem(workspaceStorageKey(item, index)) || "[]");
+  } catch {
+    return [];
+  }
+}
+
+function updateTodoProgress() {
+  const boxes = [...document.querySelectorAll("#workspaceTodos input[type='checkbox']")];
+  const completed = boxes.filter((box) => box.checked).length;
+  const progress = document.querySelector("#workspaceTodoProgress");
+  if (progress) progress.textContent = `${completed} / ${boxes.length}`;
+}
+
+function openWorkspacePlan(index) {
+  const item = workspaceData[index];
+  const dialog = document.querySelector("#workspaceDialog");
+  if (!item || !dialog) return;
+
+  document.querySelector("#workspaceDialogMeta").textContent = `${item.category || ""} · ${item.date || ""}`;
+  document.querySelector("#workspaceDialogTitle").textContent = item.title || "计划详情";
+  document.querySelector("#workspaceDialogDetail").textContent = item.detail || item.body || "";
+
+  const todos = Array.isArray(item.todos) ? item.todos : [];
+  const checked = readTodoState(item, index);
+  const target = document.querySelector("#workspaceTodos");
+  target.innerHTML = todos.length ? todos.map((todo, todoIndex) => `
+    <label class="todo-item">
+      <input type="checkbox" data-todo-index="${todoIndex}" ${checked[todoIndex] ? "checked" : ""} />
+      <span>${escapeHtml(todo)}</span>
+    </label>`).join("") : `<p class="todo-empty">这份计划还没有添加待办事项。</p>`;
+
+  target.querySelectorAll("input[type='checkbox']").forEach((box) => {
+    box.addEventListener("change", () => {
+      const nextState = [...target.querySelectorAll("input[type='checkbox']")].map((input) => input.checked);
+      localStorage.setItem(workspaceStorageKey(item, index), JSON.stringify(nextState));
+      updateTodoProgress();
+    });
+  });
+  updateTodoProgress();
+  dialog.showModal();
+}
+
+function bindWorkspaceDialog() {
+  const dialog = document.querySelector("#workspaceDialog");
+  document.querySelector("#workspaceDialogClose")?.addEventListener("click", () => dialog?.close());
+  dialog?.addEventListener("click", (event) => {
+    if (event.target === dialog) dialog.close();
+  });
+}
+
 function renderContent(data) {
   document.querySelectorAll("[data-content]").forEach((node) => {
     const value = data.content?.[node.dataset.content];
@@ -42,12 +99,24 @@ function renderContent(data) {
 
   const workspace = document.querySelector("#workspaceItems");
   if (workspace && Array.isArray(data.workspaceItems)) {
-    workspace.innerHTML = data.workspaceItems.map((item) => `
-      <article>
+    workspaceData = data.workspaceItems;
+    workspace.innerHTML = data.workspaceItems.map((item, index) => `
+      <article class="workspace-plan-card" role="button" tabindex="0" data-workspace-index="${index}" aria-label="打开${escapeHtml(item.title)}的完整计划">
         <span>${escapeHtml(item.category)} · ${escapeHtml(item.date)}</span>
         <h2>${escapeHtml(item.title)}</h2>
         <p>${escapeHtml(item.body)}</p>
+        <em>打开计划 →</em>
       </article>`).join("");
+    workspace.querySelectorAll("[data-workspace-index]").forEach((card) => {
+      const open = () => openWorkspacePlan(Number(card.dataset.workspaceIndex));
+      card.addEventListener("click", open);
+      card.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          open();
+        }
+      });
+    });
   }
 
   const anniversary = data.love?.anniversaryStart || "2022-12-24";
@@ -128,4 +197,5 @@ async function loadContent() {
   }
 }
 
+bindWorkspaceDialog();
 loadContent();

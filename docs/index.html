@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=1280" />
     <title>Jiao's Living Archive</title>
     <meta name="description" content="Jiao's Living Archive: workspace, love story, and future planning." />
-    <link rel="stylesheet" href="./styles.css?v=love-cards-future-readable-20260715" />
+    <link rel="stylesheet" href="./styles.css?v=workspace-todos-20260715" />
   </head>
   <body>
     <header class="hero" id="home">
@@ -229,6 +229,18 @@
       </section>
     </main>
 
-    <script src="./script.js?v=editable-github-20260715"></script>
+    <dialog class="workspace-dialog" id="workspaceDialog" aria-labelledby="workspaceDialogTitle">
+      <button class="workspace-dialog-close" id="workspaceDialogClose" type="button" aria-label="关闭计划详情" title="关闭">×</button>
+      <div class="workspace-dialog-meta" id="workspaceDialogMeta"></div>
+      <h2 id="workspaceDialogTitle"></h2>
+      <p class="workspace-dialog-detail" id="workspaceDialogDetail"></p>
+      <div class="todo-heading">
+        <h3>To Do List</h3>
+        <span id="workspaceTodoProgress">0 / 0</span>
+      </div>
+      <div class="workspace-todos" id="workspaceTodos"></div>
+    </dialog>
+
+    <script src="./script.js?v=workspace-todos-20260715"></script>
   </body>
 </html>

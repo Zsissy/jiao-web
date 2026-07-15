@@ -9,6 +9,7 @@ test("editable content file contains every public collection", async () => {
   assert.equal(content.content["hero.title"], "Jiao's Living Archive");
   assert.ok(content.images.profile);
   assert.equal(content.workspaceItems.length, 4);
+  assert.ok(content.workspaceItems.every((item) => Array.isArray(item.todos)));
   assert.equal(content.love.photos.length, 8);
   assert.equal(content.love.wishes.length, 3);
   assert.equal(content.quarterGoals.length, 2);
@@ -26,6 +27,8 @@ test("public page reads editable content and links to admin", async () => {
   assert.match(html, /id="loveScrapbook"/);
   assert.match(script, /fetch\(`\.\/content\.json/);
   assert.match(script, /renderScrapbook/);
+  assert.match(script, /openWorkspacePlan/);
+  assert.match(html, /id="workspaceDialog"/);
 });
 
 test("admin saves content and images through the GitHub API", async () => {
@@ -38,5 +41,6 @@ test("admin saves content and images through the GitHub API", async () => {
   assert.match(script, /api\.github\.com\/repos\/\$\{REPOSITORY\}/);
   assert.match(script, /docs\/uploads/);
   assert.match(script, /Update website content from online admin/);
+  assert.match(script, /待办事项（每行一项）/);
   assert.doesNotMatch(script, /localStorage/);
 });

@@ -60,8 +60,8 @@ const repeaterSections = [
   {
     title: "Workspace 条目",
     path: ["workspaceItems"],
-    empty: { category: "", date: "", title: "", body: "" },
-    fields: [["分类", "category"], ["日期", "date"], ["标题", "title"], ["正文", "body", "textarea"]],
+    empty: { category: "", date: "", title: "", body: "", detail: "", todos: [] },
+    fields: [["分类", "category"], ["日期", "date"], ["标题", "title"], ["卡片简介", "body", "textarea"], ["完整计划", "detail", "textarea"], ["待办事项（每行一项）", "todos", "list"]],
   },
   {
     title: "Love Story 照片",
@@ -115,10 +115,11 @@ function parsePath(value) {
 }
 
 function fieldMarkup(label, path, type = "text") {
-  const value = getValue(path) ?? "";
-  const wide = type === "textarea" || type === "image" ? " field-wide" : "";
-  if (type === "textarea") {
-    return `<label class="${wide}">${escapeHtml(label)}<textarea data-path="${pathKey(path)}">${escapeHtml(value)}</textarea></label>`;
+  const rawValue = getValue(path) ?? "";
+  const value = type === "list" && Array.isArray(rawValue) ? rawValue.join("\n") : rawValue;
+  const wide = type === "textarea" || type === "image" || type === "list" ? " field-wide" : "";
+  if (type === "textarea" || type === "list") {
+    return `<label class="${wide}">${escapeHtml(label)}<textarea data-path="${pathKey(path)}" ${type === "list" ? 'data-value-type="list" placeholder="每行填写一个待办事项"' : ""}>${escapeHtml(value)}</textarea></label>`;
   }
   if (type === "image") {
     return `<div class="image-field">
@@ -141,7 +142,10 @@ function bindInputs(root) {
   root.querySelectorAll("[data-path]").forEach((input) => {
     input.addEventListener("input", () => {
       const path = parsePath(input.dataset.path);
-      setValue(path, input.type === "number" ? Number(input.value) : input.value);
+      const value = input.dataset.valueType === "list"
+        ? input.value.split("\n").map((item) => item.trim()).filter(Boolean)
+        : input.type === "number" ? Number(input.value) : input.value;
+      setValue(path, value);
     });
   });
   root.querySelectorAll("[data-upload-path]").forEach((input) => {
