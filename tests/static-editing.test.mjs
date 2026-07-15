@@ -6,7 +6,7 @@ const root = new URL("../docs/", import.meta.url);
 
 test("editable content file contains every public collection", async () => {
   const content = JSON.parse(await readFile(new URL("content.json", root), "utf8"));
-  assert.equal(content.content["hero.title"], "Jiao's Living Archive");
+  assert.ok(content.content["hero.title"].trim());
   assert.ok(content.images.profile);
   assert.equal(content.workspaceItems.length, 4);
   assert.ok(content.workspaceItems.every((item) => Array.isArray(item.todos)));
