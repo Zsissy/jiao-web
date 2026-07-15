@@ -255,7 +255,10 @@ async function uploadImage(path, file) {
 
 async function saveAll() {
   const button = document.querySelector("#saveButton");
+  const originalLabel = button.textContent;
   button.disabled = true;
+  button.textContent = "正在保存…";
+  setStatus("正在检查管理密钥…");
   try {
     const token = document.querySelector("#tokenInput").value.trim();
     if (!token) throw new Error("请先填写 GitHub 管理密钥。");
@@ -283,11 +286,16 @@ async function saveAll() {
 
     pendingFiles.clear();
     setStatus("保存成功。GitHub Pages 通常会在 1–2 分钟内更新，网址保持不变。", "success");
+    button.textContent = "保存成功";
     renderEditor();
   } catch (error) {
     setStatus(error instanceof Error ? error.message : "保存失败，请稍后重试。", "error");
+    button.textContent = "保存失败";
   } finally {
-    button.disabled = false;
+    window.setTimeout(() => {
+      button.disabled = false;
+      button.textContent = originalLabel;
+    }, 1200);
   }
 }
 
