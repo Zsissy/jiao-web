@@ -6,20 +6,20 @@
     "nav.future": "future",
     "nav.admin": "admin",
     "hero.kicker": "PERSONAL WEBSITE",
-    "hero.title": "Jiao's Living Archive",
+    "hero.title": "janesitu's web",
     "identity.student": "student",
     "identity.law": "law exploring",
     "identity.admin": "administration management",
     "identity.soulmate": "soulmate with june",
     "module.workspace.eyebrow": "学习 / 工作 / 成果",
     "module.workspace.title": "workspace",
-    "module.workspace.copy": "学习笔记、工作计划、月度展望和成果备份，像一本持续生长的个人档案。",
-    "module.love.eyebrow": "照片 / 纪念日 / 心愿",
+    "module.workspace.copy": "学习笔记，日程管理",
+    "module.love.eyebrow": "照片 / 纪念日 / 目标",
     "module.love.title": "love story",
-    "module.love.copy": "照片墙、纪念日、重要时刻和想一起完成的小愿望。",
-    "module.future.eyebrow": "季度目标 / 旅行计划",
+    "module.love.copy": "照片墙，未来✈️计划，小肥生活记录",
+    "module.future.eyebrow": "年度 goals,爱好培养",
     "module.future.title": "future planning",
-    "module.future.copy": "把想抵达的地方和想成为的人，拆成清晰、可回看的计划。",
+    "module.future.copy": "",
     "workspace.heading.title": "workspace",
     "workspace.heading.subtitle": "学习笔记 · 工作计划 · 月度展望 · 成果备份",
     "love.heading.title": "love story",
@@ -90,14 +90,38 @@
     "apartSuffix": "天",
     "apartBody": "把想念认真存起来，等见面的时候一点点还给彼此。",
     "photos": [
-      { "src": "./assets/love/love-01.jpg", "caption": "fountain day" },
-      { "src": "./assets/love/love-03.jpg", "caption": "study with you" },
-      { "src": "./assets/love/love-08.jpg", "caption": "sunlit shadow" },
-      { "src": "./assets/love/love-07.jpg", "caption": "on the way" },
-      { "src": "./assets/love/love-02.jpg", "caption": "soft dance" },
-      { "src": "./assets/love/love-06.jpg", "caption": "spring kiss" },
-      { "src": "./assets/love/love-04.jpg", "caption": "little mirror" },
-      { "src": "./assets/love/love-05.jpg", "caption": "bright noon" }
+      {
+        "src": "./assets/love/love-01.jpg",
+        "caption": "fountain day"
+      },
+      {
+        "src": "./assets/love/love-03.jpg",
+        "caption": "study with you"
+      },
+      {
+        "src": "./assets/love/love-08.jpg",
+        "caption": "sunlit shadow"
+      },
+      {
+        "src": "./assets/love/love-07.jpg",
+        "caption": "on the way"
+      },
+      {
+        "src": "./assets/love/love-02.jpg",
+        "caption": "soft dance"
+      },
+      {
+        "src": "./assets/love/love-06.jpg",
+        "caption": "spring kiss"
+      },
+      {
+        "src": "./assets/love/love-04.jpg",
+        "caption": "little mirror"
+      },
+      {
+        "src": "./assets/love/love-05.jpg",
+        "caption": "bright noon"
+      }
     ],
     "wishes": [
       {
