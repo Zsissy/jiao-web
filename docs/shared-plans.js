@@ -15,6 +15,8 @@
     todos: new Map(),
     currentPlanKey: null,
     dirty: false,
+    planDirty: false,
+    todoDrafts: new Map(),
     pendingRemote: null,
     syncing: false,
   };
@@ -262,6 +264,11 @@
     return [...(state.todos.get(key) || [])].sort((a, b) => Number(a.sort_order) - Number(b.sort_order));
   }
 
+  function recomputeDirty() {
+    const hasTodoDraft = [...state.todoDrafts.values()].some((draft) => draft.planKey === state.currentPlanKey);
+    state.dirty = state.planDirty || hasTodoDraft;
+  }
+
   function renderDialog(key) {
     const plan = state.plans.get(key) || state.fallback.get(key);
     if (!plan) return;
@@ -280,21 +287,26 @@
 
     const todos = sortedTodos(key);
     $("#workspaceTodoProgress").textContent = `${todos.filter((todo) => todo.completed).length} / ${todos.length}`;
-    $("#workspaceTodos").innerHTML = todos.length ? todos.map((todo, index) => `
+    $("#workspaceTodos").innerHTML = todos.length ? todos.map((todo, index) => {
+      const draft = state.todoDrafts.get(todo.todo_key);
+      const displayedText = draft?.text ?? todo.text;
+      return `
       <div class="todo-item ${todo.completed ? "is-complete" : ""}" data-todo-key="${escapeHtml(todo.todo_key)}">
         <input type="checkbox" aria-label="标记${escapeHtml(todo.text)}" ${todo.completed ? "checked" : ""} ${editable ? "" : "disabled"} />
-        <input class="todo-text-input" value="${escapeHtml(todo.text)}" maxlength="160" aria-label="待办内容" ${editable ? "" : "readonly"} />
+        <input class="todo-text-input" value="${escapeHtml(displayedText)}" maxlength="160" aria-label="待办内容" ${editable ? "" : "readonly"} />
         ${editable ? `<div class="todo-actions">
           <button type="button" data-action="save-todo" title="保存文字" aria-label="保存待办文字">✓</button>
           <button type="button" data-action="move-up" title="上移" aria-label="上移" ${index === 0 ? "disabled" : ""}>↑</button>
           <button type="button" data-action="move-down" title="下移" aria-label="下移" ${index === todos.length - 1 ? "disabled" : ""}>↓</button>
           <button type="button" data-action="delete-todo" title="删除" aria-label="删除待办">×</button>
         </div>` : ""}
-      </div>`).join("") : `<p class="todo-empty">这份计划还没有添加待办事项。</p>`;
+      </div>`;
+    }).join("") : `<p class="todo-empty">这份计划还没有添加待办事项。</p>`;
   }
 
   function openPlan(key) {
-    state.dirty = false;
+    state.planDirty = false;
+    recomputeDirty();
     state.pendingRemote = null;
     renderDialog(key);
     const dialog = $("#workspaceDialog");
@@ -309,7 +321,8 @@
     $("#sharedPlanDetailInput").value = plan.detail || "";
     $("#sharedPlanView").hidden = true;
     $("#sharedPlanForm").hidden = false;
-    state.dirty = false;
+    state.planDirty = false;
+    recomputeDirty();
     $("#sharedPlanTitleInput").focus();
   }
 
@@ -325,7 +338,8 @@
       showDialogMessage("标题不能为空。", "error");
       return;
     }
-    state.dirty = true;
+    state.planDirty = true;
+    recomputeDirty();
     setSyncStatus("正在保存…");
     try {
       await ensureFreshSession();
@@ -345,7 +359,8 @@
         return;
       }
       state.plans.set(current.plan_key, rows[0]);
-      state.dirty = false;
+      state.planDirty = false;
+      recomputeDirty();
       state.pendingRemote = null;
       renderCards();
       renderDialog(current.plan_key);
@@ -386,7 +401,14 @@
       } else if (action === "save-todo") {
         const text = row.querySelector(".todo-text-input").value.trim();
         if (!text) throw new Error("待办内容不能为空");
+        const draft = state.todoDrafts.get(todoKey);
+        if (draft && Number(draft.version) !== Number(todo.version)) {
+          showTodoConflict(todo, draft);
+          return;
+        }
         const updated = await patchTodo(todo, { text });
+        state.todoDrafts.delete(todoKey);
+        recomputeDirty();
         state.todos.set(state.currentPlanKey, todos.map((item) => item.todo_key === todoKey ? updated : item));
       } else if (action === "delete-todo") {
         if (!window.confirm(`确定删除“${todo.text}”吗？`)) return;
@@ -414,6 +436,15 @@
       renderDialog(state.currentPlanKey);
       showDialogMessage(`尚未同步：${error.message}`, "error");
     }
+  }
+
+  function showTodoConflict(todo, draft) {
+    showDialogMessage("对方刚刚修改了这项待办。你的输入还在，请选择如何处理。", "warning", `
+      <div class="shared-message-actions">
+        <button type="button" data-todo-conflict="reload" data-todo-key="${escapeHtml(todo.todo_key)}">载入对方文字</button>
+        <button type="button" data-todo-conflict="keep" data-todo-key="${escapeHtml(todo.todo_key)}">保留我的文字</button>
+      </div>`);
+    state.todoDrafts.set(todo.todo_key, { ...draft, remoteVersion: todo.version });
   }
 
   async function addTodo(event) {
@@ -489,11 +520,27 @@
       }
       const conflictButton = event.target.closest("[data-conflict-action]");
       if (conflictButton?.dataset.conflictAction === "reload") {
-        state.dirty = false;
+        state.planDirty = false;
+        recomputeDirty();
         state.pendingRemote = null;
         loadCloud();
       } else if (conflictButton?.dataset.conflictAction === "overwrite") {
         updatePlan(true);
+      }
+      const todoConflict = event.target.closest("[data-todo-conflict]");
+      if (todoConflict) {
+        const todoKey = todoConflict.dataset.todoKey;
+        const draft = state.todoDrafts.get(todoKey);
+        if (todoConflict.dataset.todoConflict === "reload") {
+          state.todoDrafts.delete(todoKey);
+          recomputeDirty();
+          renderDialog(state.currentPlanKey);
+        } else if (draft) {
+          state.todoDrafts.set(todoKey, { ...draft, version: draft.remoteVersion });
+          recomputeDirty();
+          renderDialog(state.currentPlanKey);
+          showDialogMessage("已保留你的文字，请再点击该行的 ✓ 保存。", "info");
+        }
       }
     });
     document.addEventListener("keydown", (event) => {
@@ -509,6 +556,20 @@
         handleTodoAction(row.dataset.todoKey, "toggle", row);
       }
     });
+    $("#workspaceTodos")?.addEventListener("input", (event) => {
+      if (!event.target.matches(".todo-text-input")) return;
+      const row = event.target.closest("[data-todo-key]");
+      const todo = sortedTodos(state.currentPlanKey).find((item) => item.todo_key === row.dataset.todoKey);
+      if (!todo) return;
+      const existing = state.todoDrafts.get(todo.todo_key);
+      state.todoDrafts.set(todo.todo_key, {
+        planKey: state.currentPlanKey,
+        text: event.target.value,
+        version: existing?.version ?? todo.version,
+      });
+      recomputeDirty();
+      setSyncStatus("有尚未保存的待办文字", "warning");
+    });
     $("#workspaceDialogClose")?.addEventListener("click", () => $("#workspaceDialog")?.close());
     $("#workspaceDialog")?.addEventListener("click", (event) => {
       if (event.target === $("#workspaceDialog")) $("#workspaceDialog").close();
@@ -519,10 +580,14 @@
     $("#sharedLoginForm")?.addEventListener("submit", login);
     $("#sharedEditPlanButton")?.addEventListener("click", startPlanEdit);
     $("#sharedCancelPlanButton")?.addEventListener("click", () => {
-      state.dirty = false;
+      state.planDirty = false;
+      recomputeDirty();
       renderDialog(state.currentPlanKey);
     });
-    $("#sharedPlanForm")?.addEventListener("input", () => { state.dirty = true; });
+    $("#sharedPlanForm")?.addEventListener("input", () => {
+      state.planDirty = true;
+      recomputeDirty();
+    });
     $("#sharedPlanForm")?.addEventListener("submit", (event) => {
       event.preventDefault();
       updatePlan();

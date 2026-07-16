@@ -39,6 +39,8 @@ test("public page reads editable content and loads shared plans", async () => {
   assert.match(shared, /grant_type=password/);
   assert.match(shared, /sessionStorage/);
   assert.match(shared, /syncIntervalMs/);
+  assert.match(shared, /todoDrafts/);
+  assert.match(shared, /有尚未保存的待办文字/);
   assert.doesNotMatch(shared, /localStorage/);
 });
 
