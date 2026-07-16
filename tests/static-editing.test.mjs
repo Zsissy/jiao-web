@@ -14,7 +14,9 @@ test("editable content file contains every public collection", async () => {
   assert.equal(content.love.wishes.length, 3);
   assert.ok(content.love.wishes.every((item) => item.key && Array.isArray(item.todos)));
   assert.equal(content.quarterGoals.length, 2);
+  assert.ok(content.quarterGoals.every((item) => item.key && Array.isArray(item.todos)));
   assert.equal(content.travelPlans.length, 2);
+  assert.ok(content.travelPlans.every((item) => item.key && Array.isArray(item.todos)));
 });
 
 test("public page reads editable content and loads shared plans", async () => {
@@ -30,6 +32,7 @@ test("public page reads editable content and loads shared plans", async () => {
   assert.match(script, /fetch\(`\.\/content\.json/);
   assert.match(script, /renderScrapbook/);
   assert.match(script, /jiao:content-ready/);
+  assert.match(script, /future-shared-card/);
   assert.match(html, /id="workspaceDialog"/);
   assert.match(html, /id="sharedLoginDialog"/);
   assert.match(html, /shared-config\.js/);
@@ -60,15 +63,19 @@ test("admin saves content and images through the GitHub API", async () => {
 });
 
 test("Supabase setup enforces public read and signed-in writes", async () => {
-  const [sql, config] = await Promise.all([
+  const [sql, migration, config] = await Promise.all([
     readFile(new URL("../supabase/shared-plans.sql", import.meta.url), "utf8"),
+    readFile(new URL("../supabase/add-future-plans.sql", import.meta.url), "utf8"),
     readFile(new URL("shared-config.js", root), "utf8"),
   ]);
   assert.match(sql, /enable row level security/i);
   assert.match(sql, /to anon, authenticated[\s\S]*using \(true\)/i);
   assert.match(sql, /for update[\s\S]*to authenticated/i);
   assert.match(sql, /bump_shared_version/);
-  assert.equal((sql.match(/\('(?:workspace|love)-[^']+', '(?:workspace|love)'/g) || []).length, 7);
+  assert.equal((sql.match(/\('(?:workspace|love|future)-[^']+', '(?:workspace|love|future)'/g) || []).length, 11);
+  assert.match(sql, /section in \('workspace', 'love', 'future'\)/);
+  assert.equal((migration.match(/\('future-[^']+', 'future'/g) || []).length, 4);
+  assert.match(migration, /drop constraint if exists shared_plans_section_check/);
   assert.match(config, /couple-editor@example\.com/);
   assert.doesNotMatch(config, /service_role/i);
 });

@@ -87,21 +87,23 @@ function renderContent(data) {
   const goals = document.querySelector("#quarterGoals");
   if (goals && Array.isArray(data.quarterGoals)) {
     goals.innerHTML = `<h2>${escapeHtml(data.content?.["future.goals.title"] || "季度目标")}</h2>${data.quarterGoals.map((item) => `
-      <article>
+      <article class="future-shared-card shared-plan-card" role="button" tabindex="0" data-plan-key="${escapeHtml(item.key)}" aria-label="打开${escapeHtml(item.title)}的完整计划">
         <span>${escapeHtml(item.quarter)} · ${escapeHtml(item.status)}</span>
         <h3>${escapeHtml(item.title)}</h3>
         <p>${escapeHtml(item.body)}</p>
         <div class="progress"><i style="width:${Math.min(100, Math.max(0, Number(item.progress) || 0))}%"></i></div>
+        <em>打开计划 →</em>
       </article>`).join("")}`;
   }
 
   const trips = document.querySelector("#travelPlans");
   if (trips && Array.isArray(data.travelPlans)) {
     trips.innerHTML = `<h2>${escapeHtml(data.content?.["future.travel.title"] || "旅行计划")}</h2>${data.travelPlans.map((item) => `
-      <article>
+      <article class="future-shared-card shared-plan-card" role="button" tabindex="0" data-plan-key="${escapeHtml(item.key)}" aria-label="打开${escapeHtml(item.destination)}的完整计划">
         <span>${escapeHtml(item.status)} · ${escapeHtml(item.time)}</span>
         <h3>${escapeHtml(item.destination)}</h3>
         <p>${escapeHtml(item.body)}</p>
+        <em>打开计划 →</em>
       </article>`).join("")}`;
   }
 

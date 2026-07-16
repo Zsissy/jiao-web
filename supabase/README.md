@@ -14,7 +14,10 @@
 
 1. 在 Supabase 左侧打开 `SQL Editor`。
 2. 新建查询，将 `supabase/shared-plans.sql` 的全部内容粘贴进去。
-3. 点击 `Run`。看到成功提示后，七份计划和初始待办已写入。
+3. 点击 `Run`。看到成功提示后，十一份计划和初始待办已写入。
+
+如果你之前已经运行过旧版脚本并拥有七份计划，请改为运行
+`supabase/add-future-plans.sql`。它只补充 Future Planning 的四份计划，不会清除已有内容或勾选状态。
 
 ## 3. 创建情侣编辑账号
 

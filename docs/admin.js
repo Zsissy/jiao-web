@@ -63,18 +63,6 @@ const repeaterSections = [
     empty: { src: "", caption: "" },
     fields: [["照片", "src", "image"], ["照片说明", "caption"]],
   },
-  {
-    title: "季度目标",
-    path: ["quarterGoals"],
-    empty: { quarter: "", status: "进行中", title: "", body: "", progress: 0 },
-    fields: [["季度", "quarter"], ["状态", "status"], ["标题", "title"], ["说明", "body", "textarea"], ["进度（0-100）", "progress", "number"]],
-  },
-  {
-    title: "旅行计划",
-    path: ["travelPlans"],
-    empty: { status: "计划中", time: "", destination: "", body: "" },
-    fields: [["状态", "status"], ["时间", "time"], ["目的地", "destination"], ["说明", "body", "textarea"]],
-  },
 ];
 
 function escapeHtml(value) {
@@ -162,7 +150,7 @@ function renderEditor() {
     fieldMarkup("分别模块说明", ["love", "apartBody"], "textarea"),
   ].join("");
   editor.append(makeSection("纪念日与时间线", loveMarkup));
-  editor.append(makeSection("情侣共享计划", '<p class="hint">Workspace 计划和 Love Story 愿望已改为展示页协作编辑。请返回网站，点击“情侣编辑”后维护标题、详情和待办事项。</p>'));
+  editor.append(makeSection("情侣共享计划", '<p class="hint">Workspace、Love Story 愿望和 Future Planning 已改为展示页协作编辑。请返回网站，点击“情侣编辑”后维护标题、详情和待办事项。</p>'));
 
   repeaterSections.forEach((definition) => {
     const list = getValue(definition.path) || [];

@@ -130,6 +130,56 @@
         })),
       });
     });
+    (data.quarterGoals || []).forEach((item, sortOrder) => {
+      plans.push({
+        plan_key: item.key,
+        section: "future",
+        eyebrow: `${item.quarter || ""} · ${item.status || ""}`,
+        title: item.title || "季度目标",
+        summary: item.body || "",
+        detail: item.detail || item.body || "",
+        image_url: "",
+        sort_order: sortOrder,
+        version: 1,
+        last_editor: null,
+        updated_at: null,
+        todos: (item.todos || []).map((text, index) => ({
+          todo_key: `fallback-${item.key}-${index}`,
+          plan_key: item.key,
+          text,
+          completed: false,
+          sort_order: index,
+          version: 1,
+          last_editor: null,
+          updated_at: null,
+        })),
+      });
+    });
+    (data.travelPlans || []).forEach((item, sortOrder) => {
+      plans.push({
+        plan_key: item.key,
+        section: "future",
+        eyebrow: `${item.status || ""} · ${item.time || ""}`,
+        title: item.destination || "旅行计划",
+        summary: item.body || "",
+        detail: item.detail || item.body || "",
+        image_url: "",
+        sort_order: sortOrder + 10,
+        version: 1,
+        last_editor: null,
+        updated_at: null,
+        todos: (item.todos || []).map((text, index) => ({
+          todo_key: `fallback-${item.key}-${index}`,
+          plan_key: item.key,
+          text,
+          completed: false,
+          sort_order: index,
+          version: 1,
+          last_editor: null,
+          updated_at: null,
+        })),
+      });
+    });
     state.fallback = new Map(plans.map((plan) => [plan.plan_key, plan]));
     useFallback();
   }
@@ -261,7 +311,9 @@
   }
 
   function sortedTodos(key) {
-    return [...(state.todos.get(key) || [])].sort((a, b) => Number(a.sort_order) - Number(b.sort_order));
+    const cloudTodos = state.todos.get(key);
+    const fallbackTodos = state.fallback.get(key)?.todos;
+    return [...(cloudTodos || fallbackTodos || [])].sort((a, b) => Number(a.sort_order) - Number(b.sort_order));
   }
 
   function recomputeDirty() {
@@ -272,7 +324,8 @@
   function renderDialog(key) {
     const plan = state.plans.get(key) || state.fallback.get(key);
     if (!plan) return;
-    const editable = Boolean(session() && state.configured);
+    const cloudReady = state.plans.has(key);
+    const editable = Boolean(session() && state.configured && cloudReady);
     state.currentPlanKey = key;
     $("#workspaceDialogMeta").textContent = plan.eyebrow || (plan.section === "love" ? "共同愿望" : "共同计划");
     $("#workspaceDialogTitle").textContent = plan.title;
@@ -283,7 +336,12 @@
     $("#sharedAddTodoForm").hidden = !editable;
     $("#sharedPlanView").hidden = false;
     $("#sharedPlanForm").hidden = true;
-    showDialogMessage(state.configured ? "" : "共享云端尚未配置，当前展示静态备用内容。", "info");
+    const unavailableMessage = !state.configured
+      ? "共享云端尚未配置，当前展示静态备用内容。"
+      : !cloudReady
+        ? "这份 Future 计划尚未加入云端，请先运行 Future 补充脚本。"
+        : "";
+    showDialogMessage(unavailableMessage, "info");
 
     const todos = sortedTodos(key);
     $("#workspaceTodoProgress").textContent = `${todos.filter((todo) => todo.completed).length} / ${todos.length}`;
