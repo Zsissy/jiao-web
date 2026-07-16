@@ -51,6 +51,7 @@
   },
   "workspaceItems": [
     {
+      "key": "workspace-reading",
       "category": "学习笔记",
       "date": "2026-07",
       "title": "阅读与课程索引",
@@ -59,6 +60,7 @@
       "todos": ["整理本月课程与阅读目录", "完成每周阅读笔记", "归纳论文核心观点", "月底完成一次知识复盘"]
     },
     {
+      "key": "workspace-weekly",
       "category": "工作计划",
       "date": "2026-W29",
       "title": "本周重点",
@@ -67,6 +69,7 @@
       "todos": ["整理本周项目节奏", "完成阶段输出复盘", "准备下一阶段材料", "安排下周优先事项"]
     },
     {
+      "key": "workspace-monthly",
       "category": "月度展望",
       "date": "2026-07",
       "title": "七月展望",
@@ -75,6 +78,7 @@
       "todos": ["制定七月月度安排", "每周保留完整休息时间", "完成一次长篇表达", "记录本月值得纪念的时刻"]
     },
     {
+      "key": "workspace-achievements",
       "category": "成果备份",
       "date": "2026",
       "title": "阶段成果库",
@@ -125,22 +129,31 @@
     ],
     "wishes": [
       {
+        "key": "love-travel",
         "status": "想完成",
         "title": "一起出国旅行",
         "body": "带相机、护照和一本小本子，把路上的风景都贴进去。",
-        "image": "./assets/wishes/wish-travel.png"
+        "image": "./assets/wishes/wish-travel.png",
+        "detail": "把第一次一起出国旅行认真计划起来，从目的地、证件和预算，到想拍的照片与想收藏的小纪念品，都慢慢准备。",
+        "todos": ["确定第一站目的地", "检查护照与签证要求", "一起制定旅行预算", "整理想去的地点清单"]
       },
       {
+        "key": "love-chubby-life",
         "status": "想完成",
         "title": "一起过小肥生活",
         "body": "认真吃饭，认真散步，也认真把普通日子过得软乎乎。",
-        "image": "./assets/wishes/wish-chubby-life.png"
+        "image": "./assets/wishes/wish-chubby-life.png",
+        "detail": "把平常的小日子也当成共同计划：好好吃饭、规律休息、一起散步，也留下只属于两个人的生活记录。",
+        "todos": ["一起学一道新菜", "安排一次长距离散步", "记录本月的小肥生活", "挑一天认真休息"]
       },
       {
+        "key": "love-graduation",
         "status": "想完成",
         "title": "顺利毕业",
         "body": "一起稳稳走过这一段，把努力和好消息都带到下一站。",
-        "image": "./assets/wishes/wish-graduation-study.png"
+        "image": "./assets/wishes/wish-graduation-study.png",
+        "detail": "互相陪伴完成毕业阶段的重要任务，按时间准备材料、论文和答辩，也记得在忙碌里给彼此鼓励。",
+        "todos": ["确认毕业时间节点", "完成论文阶段计划", "准备答辩与毕业材料", "一起拍毕业纪念照"]
       }
     ]
   },

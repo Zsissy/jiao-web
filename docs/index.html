@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=1280" />
     <title>Jiao's Living Archive</title>
     <meta name="description" content="Jiao's Living Archive: workspace, love story, and future planning." />
-    <link rel="stylesheet" href="./styles.css?v=workspace-todos-20260715" />
+    <link rel="stylesheet" href="./styles.css?v=shared-plans-20260716" />
   </head>
   <body>
     <header class="hero" id="home">
@@ -51,6 +51,17 @@
     </header>
 
     <main>
+      <aside class="collaboration-bar" aria-live="polite">
+        <div>
+          <strong>情侣共享计划</strong>
+          <span id="sharedSyncStatus">正在准备共享内容…</span>
+        </div>
+        <div class="collaboration-actions">
+          <span id="sharedEditorBadge" hidden></span>
+          <button class="shared-secondary-button" id="sharedLogoutButton" type="button" hidden>退出编辑</button>
+          <button class="shared-primary-button" id="sharedLoginButton" type="button">情侣编辑</button>
+        </div>
+      </aside>
       <section class="module-grid" aria-label="网站模块">
         <a class="module-card workspace-cover" href="#workspace">
           <span data-content="module.workspace.eyebrow">学习 / 工作 / 成果</span>
@@ -232,15 +243,55 @@
     <dialog class="workspace-dialog" id="workspaceDialog" aria-labelledby="workspaceDialogTitle">
       <button class="workspace-dialog-close" id="workspaceDialogClose" type="button" aria-label="关闭计划详情" title="关闭">×</button>
       <div class="workspace-dialog-meta" id="workspaceDialogMeta"></div>
-      <h2 id="workspaceDialogTitle"></h2>
-      <p class="workspace-dialog-detail" id="workspaceDialogDetail"></p>
+      <div class="shared-message" id="sharedDialogMessage" hidden></div>
+      <div class="shared-plan-view" id="sharedPlanView">
+        <h2 id="workspaceDialogTitle"></h2>
+        <p class="workspace-dialog-summary" id="workspaceDialogSummary"></p>
+        <p class="workspace-dialog-detail" id="workspaceDialogDetail"></p>
+      </div>
+      <form class="shared-plan-form" id="sharedPlanForm" hidden>
+        <label>标题<input id="sharedPlanTitleInput" maxlength="80" required /></label>
+        <label>卡片简介<textarea id="sharedPlanSummaryInput" rows="2" maxlength="260"></textarea></label>
+        <label>完整计划<textarea id="sharedPlanDetailInput" rows="5" maxlength="2000"></textarea></label>
+        <div class="shared-form-actions">
+          <button class="shared-secondary-button" id="sharedCancelPlanButton" type="button">取消</button>
+          <button class="shared-primary-button" type="submit">保存文字</button>
+        </div>
+      </form>
+      <div class="shared-plan-toolbar">
+        <small id="sharedPlanUpdated"></small>
+        <button class="shared-secondary-button" id="sharedEditPlanButton" type="button" hidden>编辑文字</button>
+      </div>
       <div class="todo-heading">
         <h3>To Do List</h3>
         <span id="workspaceTodoProgress">0 / 0</span>
       </div>
       <div class="workspace-todos" id="workspaceTodos"></div>
+      <form class="shared-add-todo" id="sharedAddTodoForm" hidden>
+        <input id="sharedNewTodoInput" maxlength="160" placeholder="添加一项新的待办" aria-label="新的待办事项" />
+        <button class="shared-primary-button" type="submit">添加</button>
+      </form>
     </dialog>
 
-    <script src="./script.js?v=workspace-todos-20260715"></script>
+    <dialog class="shared-login-dialog" id="sharedLoginDialog" aria-labelledby="sharedLoginTitle">
+      <button class="workspace-dialog-close" id="sharedLoginClose" type="button" aria-label="关闭登录" title="关闭">×</button>
+      <p class="workspace-dialog-meta">COUPLE EDITOR</p>
+      <h2 id="sharedLoginTitle">进入情侣编辑</h2>
+      <p>选择你的名字并输入你们共同保存的密码。关闭这个浏览器标签页后会自动退出。</p>
+      <form id="sharedLoginForm">
+        <fieldset class="shared-identity-picker">
+          <legend>这次由谁编辑？</legend>
+          <label><input type="radio" name="sharedEditor" value="Jiao" checked /><span>Jiao</span></label>
+          <label><input type="radio" name="sharedEditor" value="June" /><span>June</span></label>
+        </fieldset>
+        <label class="shared-password-label">情侣编辑密码<input id="sharedPasswordInput" type="password" autocomplete="current-password" required /></label>
+        <p class="shared-login-error" id="sharedLoginError" hidden></p>
+        <button class="shared-primary-button" id="sharedLoginSubmit" type="submit">进入编辑模式</button>
+      </form>
+    </dialog>
+
+    <script src="./shared-config.js?v=20260716"></script>
+    <script src="./shared-plans.js?v=20260716"></script>
+    <script src="./script.js?v=shared-plans-20260716"></script>
   </body>
 </html>

@@ -1513,13 +1513,118 @@ article p,
   font-weight: 700;
 }
 
+.love-wish-card {
+  cursor: pointer;
+  transition: transform 180ms ease, background-color 180ms ease;
+}
+
+.love-wish-card:hover,
+.love-wish-card:focus-visible {
+  background-color: rgba(255, 251, 238, 0.78);
+  outline: 2px solid rgba(91, 68, 43, 0.42);
+  outline-offset: -2px;
+  transform: translateY(-2px);
+}
+
+.love-wish-card em {
+  display: block;
+  margin-top: 12px;
+  color: rgba(61, 45, 27, 0.82);
+  font-style: normal;
+  font-weight: 700;
+}
+
+.collaboration-bar {
+  position: sticky;
+  z-index: 20;
+  top: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  width: min(100% - 44px, 1180px);
+  margin: 22px auto 4px;
+  border: 1px solid rgba(104, 82, 52, 0.2);
+  border-radius: 18px;
+  background: rgba(255, 251, 239, 0.94);
+  box-shadow: 0 10px 28px rgba(76, 56, 34, 0.12);
+  padding: 13px 16px 13px 20px;
+  color: #3d2f20;
+}
+
+.collaboration-bar > div:first-child {
+  display: grid;
+  gap: 2px;
+}
+
+.collaboration-bar strong {
+  font-size: 17px;
+}
+
+.collaboration-bar span {
+  color: rgba(61, 47, 32, 0.68);
+  font-size: 14px;
+}
+
+#sharedSyncStatus[data-tone="error"] {
+  color: #9c3329;
+}
+
+#sharedSyncStatus[data-tone="warning"] {
+  color: #8c5a13;
+}
+
+.collaboration-actions,
+.shared-form-actions,
+.shared-plan-toolbar,
+.shared-message-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+#sharedEditorBadge {
+  color: #006c78;
+  font-weight: 700;
+}
+
+.shared-primary-button,
+.shared-secondary-button,
+.shared-message-actions button {
+  min-height: 40px;
+  border: 1px solid #173d42;
+  border-radius: 8px;
+  padding: 8px 15px;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+}
+
+.shared-primary-button {
+  background: #173d42;
+  color: #fffdf5;
+}
+
+.shared-secondary-button,
+.shared-message-actions button {
+  background: transparent;
+  color: #173d42;
+}
+
+.shared-primary-button:disabled,
+.shared-secondary-button:disabled {
+  cursor: wait;
+  opacity: 0.55;
+}
+
 .workspace-dialog {
   width: min(760px, calc(100% - 40px));
   max-height: min(760px, calc(100vh - 70px));
   overflow: auto;
   border: 1px solid rgba(255, 255, 255, 0.78);
   border-radius: 24px;
-  background: rgba(246, 255, 254, 0.94);
+  background: #f7fbf6;
   box-shadow: 0 30px 90px rgba(4, 35, 40, 0.34);
   color: #082f35;
   padding: 42px;
@@ -1527,7 +1632,6 @@ article p,
 
 .workspace-dialog::backdrop {
   background: rgba(4, 31, 36, 0.52);
-  backdrop-filter: blur(3px);
 }
 
 .workspace-dialog-close {
@@ -1563,6 +1667,87 @@ article p,
   line-height: 1.8;
 }
 
+.workspace-dialog-summary {
+  margin: 0 0 10px;
+  color: #0a525b;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.55;
+}
+
+.shared-plan-toolbar {
+  justify-content: space-between;
+  margin-top: 18px;
+}
+
+.shared-plan-toolbar small {
+  color: rgba(8, 47, 53, 0.62);
+}
+
+.shared-plan-form {
+  display: grid;
+  gap: 15px;
+  margin-top: 12px;
+}
+
+.shared-plan-form[hidden],
+.shared-plan-view[hidden] {
+  display: none;
+}
+
+.shared-plan-form label,
+.shared-password-label {
+  display: grid;
+  gap: 7px;
+  color: #17454b;
+  font-weight: 700;
+}
+
+.shared-plan-form input,
+.shared-plan-form textarea,
+.shared-password-label input,
+.shared-add-todo input,
+.todo-text-input {
+  width: 100%;
+  border: 1px solid rgba(8, 47, 53, 0.24);
+  border-radius: 8px;
+  background: rgba(255, 255, 252, 0.94);
+  color: #082f35;
+  padding: 10px 12px;
+  font: inherit;
+  line-height: 1.5;
+}
+
+.shared-plan-form textarea {
+  resize: vertical;
+}
+
+.shared-message {
+  display: grid;
+  gap: 10px;
+  margin: 12px 52px 16px 0;
+  border-left: 4px solid #357f87;
+  background: rgba(217, 239, 237, 0.76);
+  padding: 11px 13px;
+  line-height: 1.5;
+}
+
+.shared-message[hidden] {
+  display: none;
+}
+
+.shared-message[data-tone="error"] {
+  border-left-color: #b44336;
+  background: #fff0eb;
+  color: #84291f;
+}
+
+.shared-message[data-tone="warning"] {
+  border-left-color: #b77718;
+  background: #fff5d8;
+  color: #71480c;
+}
+
 .todo-heading {
   display: flex;
   align-items: end;
@@ -1592,7 +1777,7 @@ article p,
 
 .todo-item {
   display: grid;
-  grid-template-columns: 24px 1fr;
+  grid-template-columns: 24px minmax(0, 1fr) auto;
   align-items: start;
   gap: 13px;
   border-bottom: 1px dashed rgba(8, 47, 53, 0.16);
@@ -1603,16 +1788,130 @@ article p,
   line-height: 1.5;
 }
 
-.todo-item input {
+.todo-text-input {
+  border-color: transparent;
+  background: transparent;
+  padding: 3px 4px;
+  font-size: 19px;
+}
+
+.todo-text-input:not([readonly]):focus {
+  border-color: rgba(8, 47, 53, 0.26);
+  background: #fff;
+  outline: none;
+}
+
+.todo-item.is-complete .todo-text-input {
+  color: rgba(8, 47, 53, 0.48);
+  text-decoration: line-through;
+}
+
+.todo-actions {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.todo-actions button {
+  width: 32px;
+  height: 32px;
+  border: 1px solid rgba(8, 47, 53, 0.18);
+  border-radius: 50%;
+  background: transparent;
+  color: #0a525b;
+  cursor: pointer;
+  font: 18px/1 sans-serif;
+}
+
+.todo-actions button:disabled {
+  cursor: default;
+  opacity: 0.28;
+}
+
+.shared-add-todo {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.shared-add-todo[hidden] {
+  display: none;
+}
+
+.shared-login-dialog {
+  width: min(520px, calc(100% - 40px));
+  border: 1px solid rgba(94, 73, 46, 0.24);
+  border-radius: 18px;
+  background: #fffaf0;
+  box-shadow: 0 30px 90px rgba(52, 38, 23, 0.32);
+  color: #3d2f20;
+  padding: 38px;
+}
+
+.shared-login-dialog::backdrop {
+  background: rgba(47, 36, 24, 0.54);
+}
+
+.shared-login-dialog h2 {
+  margin: 8px 50px 8px 0;
+  font-size: 38px;
+}
+
+.shared-login-dialog form {
+  display: grid;
+  gap: 18px;
+  margin-top: 22px;
+}
+
+.shared-identity-picker {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  border: 0;
+  padding: 0;
+}
+
+.shared-identity-picker legend {
+  grid-column: 1 / -1;
+  margin-bottom: 7px;
+  font-weight: 700;
+}
+
+.shared-identity-picker label {
+  cursor: pointer;
+}
+
+.shared-identity-picker input {
+  position: absolute;
+  opacity: 0;
+}
+
+.shared-identity-picker span {
+  display: block;
+  border: 1px solid rgba(61, 47, 32, 0.26);
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+}
+
+.shared-identity-picker input:checked + span {
+  border-color: #173d42;
+  background: #173d42;
+  color: #fffdf5;
+}
+
+.shared-login-error {
+  margin: 0;
+  color: #9c3329;
+  font-weight: 700;
+}
+
+.todo-item input[type="checkbox"] {
   width: 21px;
   height: 21px;
   margin: 3px 0 0;
   accent-color: #008795;
-}
-
-.todo-item input:checked + span {
-  color: rgba(8, 47, 53, 0.5);
-  text-decoration: line-through;
 }
 
 .todo-empty {

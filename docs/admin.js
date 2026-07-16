@@ -58,22 +58,10 @@ const imageFields = [
 
 const repeaterSections = [
   {
-    title: "Workspace 条目",
-    path: ["workspaceItems"],
-    empty: { category: "", date: "", title: "", body: "", detail: "", todos: [] },
-    fields: [["分类", "category"], ["日期", "date"], ["标题", "title"], ["卡片简介", "body", "textarea"], ["完整计划", "detail", "textarea"], ["待办事项（每行一项）", "todos", "list"]],
-  },
-  {
     title: "Love Story 照片",
     path: ["love", "photos"],
     empty: { src: "", caption: "" },
     fields: [["照片", "src", "image"], ["照片说明", "caption"]],
-  },
-  {
-    title: "愿望清单",
-    path: ["love", "wishes"],
-    empty: { status: "想完成", title: "", body: "", image: "" },
-    fields: [["状态", "status"], ["愿望", "title"], ["说明", "body", "textarea"], ["表情图片", "image", "image"]],
   },
   {
     title: "季度目标",
@@ -174,6 +162,7 @@ function renderEditor() {
     fieldMarkup("分别模块说明", ["love", "apartBody"], "textarea"),
   ].join("");
   editor.append(makeSection("纪念日与时间线", loveMarkup));
+  editor.append(makeSection("情侣共享计划", '<p class="hint">Workspace 计划和 Love Story 愿望已改为展示页协作编辑。请返回网站，点击“情侣编辑”后维护标题、详情和待办事项。</p>'));
 
   repeaterSections.forEach((definition) => {
     const list = getValue(definition.path) || [];
