@@ -5,8 +5,9 @@ export const metadata: Metadata = {
   title: "Jiao's Living Archive",
   description: "一个记录学习、爱情和未来计划的个人网站。",
   icons: {
-    icon: "/favicon.svg",
-    shortcut: "/favicon.svg",
+    icon: "/favicon.png",
+    shortcut: "/favicon.png",
+    apple: "/favicon.png",
   },
   openGraph: {
     title: "Jiao's Living Archive",
